@@ -1,0 +1,840 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ascension | Trade Smarter. Live More.</title>
+    <meta name="description" content="Ascension is an automated trading community where traditional discipline meets the digital frontier. AI-powered bots trade while you live your life.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.7);
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --gold-glow: rgba(245, 158, 11, 0.4);
+            --cyan: #06b6d4;
+            --cyan-light: #22d3ee;
+            --cyan-glow: rgba(6, 182, 212, 0.4);
+            --purple: #8b5cf6;
+            --purple-light: #a78bfa;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* Animated background */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .bg-effects::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 70%);
+        }
+
+        .bg-effects::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+            opacity: 0.03;
+        }
+
+        /* Grid overlay */
+        .grid-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .container {
+            position: relative;
+            z-index: 1;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 24px;
+        }
+
+        /* Header */
+        header {
+            padding: 24px 0;
+            position: relative;
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 32px;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan-light);
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: calc(100vh - 80px);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 60px 0;
+        }
+
+        .logo-container {
+            position: relative;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out;
+            width: 200px;
+            height: 200px;
+        }
+
+        .logo-flipbook {
+            position: relative;
+            width: 180px;
+            height: 180px;
+            margin: 10px;
+        }
+
+        .logo-icon {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 180px;
+            height: 180px;
+            object-fit: contain;
+            opacity: 0;
+            filter: drop-shadow(0 0 30px var(--cyan-glow));
+            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
+            transform: rotateY(90deg);
+        }
+
+        .logo-icon.active {
+            opacity: 1;
+            transform: rotateY(0deg);
+            filter: drop-shadow(0 0 40px var(--gold-glow)) drop-shadow(0 0 60px var(--cyan-glow));
+        }
+
+        .logo-icon.svg-icon {
+            background: transparent;
+        }
+
+        .logo-ring {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 220px;
+            height: 220px;
+            border: 1px solid rgba(245, 158, 11, 0.2);
+            border-radius: 50%;
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        .logo-ring-outer {
+            width: 260px;
+            height: 260px;
+            border-color: rgba(6, 182, 212, 0.1);
+            animation-delay: 0.5s;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
+        }
+
+        /* Icon label */
+        .icon-label {
+            position: absolute;
+            bottom: -35px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-family: 'Cinzel', serif;
+            font-size: 12px;
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            opacity: 0;
+            transition: opacity 0.5s ease;
+            white-space: nowrap;
+        }
+
+        .icon-label.active {
+            opacity: 1;
+        }
+
+        /* Navigation dots */
+        .icon-nav {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            margin-top: 50px;
+        }
+
+        .icon-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--text-muted);
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            padding: 0;
+        }
+
+        .icon-dot:hover {
+            background: var(--cyan);
+        }
+
+        .icon-dot.active {
+            background: var(--cyan-light);
+            box-shadow: 0 0 10px var(--cyan-glow);
+        }
+
+        .title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(48px, 10vw, 80px);
+            font-weight: 600;
+            letter-spacing: 0.2em;
+            margin-bottom: 16px;
+            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-light) 50%, var(--text-primary) 100%);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: fadeInUp 1s ease-out 0.2s both, shimmer 8s linear infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: 0% center; }
+            100% { background-position: 200% center; }
+        }
+
+        .tagline {
+            font-family: 'Rajdhani', sans-serif;
+            font-size: clamp(18px, 3vw, 24px);
+            font-weight: 400;
+            color: var(--text-secondary);
+            letter-spacing: 0.15em;
+            text-transform: uppercase;
+            margin-bottom: 32px;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+
+        .tagline .highlight-gold {
+            color: var(--gold-light);
+        }
+
+        .tagline .highlight-cyan {
+            color: var(--cyan-light);
+        }
+
+        .intro {
+            max-width: 700px;
+            font-size: 18px;
+            color: var(--text-secondary);
+            margin-bottom: 48px;
+            line-height: 1.8;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* CTA Buttons */
+        .cta-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 16px 32px;
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 16px;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 4px;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
+            color: var(--bg-dark);
+            border: none;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 40px var(--gold-glow);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: var(--cyan-light);
+            border: 1px solid var(--cyan);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(6, 182, 212, 0.1);
+            box-shadow: 0 0 30px var(--cyan-glow);
+            transform: translateY(-2px);
+        }
+
+        .btn-ghost {
+            background: transparent;
+            color: var(--text-secondary);
+            border: 1px solid var(--text-muted);
+        }
+
+        .btn-ghost:hover {
+            color: var(--text-primary);
+            border-color: var(--text-secondary);
+        }
+
+        .btn-disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        .btn-disabled:hover {
+            transform: none;
+            box-shadow: none;
+        }
+
+        /* Icon styles */
+        .btn svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Two Realms Section */
+        .realms-section {
+            padding: 100px 0;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            font-weight: 500;
+            letter-spacing: 0.3em;
+            text-transform: uppercase;
+            text-align: center;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .section-heading {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(28px, 5vw, 40px);
+            font-weight: 600;
+            text-align: center;
+            margin-bottom: 60px;
+        }
+
+        .realms-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 768px) {
+            .realms-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .realm-card {
+            background: var(--bg-card);
+            backdrop-filter: blur(10px);
+            border-radius: 12px;
+            padding: 40px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .realm-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+        }
+
+        .realm-card.tradfi::before {
+            background: linear-gradient(90deg, transparent, var(--gold), transparent);
+        }
+
+        .realm-card.crypto::before {
+            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+        }
+
+        .realm-card:hover::before {
+            opacity: 1;
+        }
+
+        .realm-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(255, 255, 255, 0.1);
+        }
+
+        .realm-card.tradfi:hover {
+            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.1);
+        }
+
+        .realm-card.crypto:hover {
+            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.1);
+        }
+
+        .realm-icon {
+            font-size: 40px;
+            margin-bottom: 20px;
+        }
+
+        .realm-name {
+            font-family: 'Cinzel', serif;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .realm-card.tradfi .realm-name {
+            color: var(--gold-light);
+        }
+
+        .realm-card.crypto .realm-name {
+            color: var(--cyan-light);
+        }
+
+        .realm-subtitle {
+            font-size: 14px;
+            color: var(--text-muted);
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            margin-bottom: 20px;
+        }
+
+        .realm-description {
+            color: var(--text-secondary);
+            line-height: 1.8;
+        }
+
+        /* Features Section */
+        .features-section {
+            padding: 80px 0;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 40px;
+        }
+
+        @media (max-width: 900px) {
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .feature {
+            text-align: center;
+            padding: 20px;
+        }
+
+        .feature-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 12px;
+            background: rgba(139, 92, 246, 0.1);
+            border: 1px solid rgba(139, 92, 246, 0.2);
+        }
+
+        .feature-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--purple-light);
+        }
+
+        .feature-title {
+            font-family: 'Cinzel', serif;
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 12px;
+        }
+
+        .feature-text {
+            color: var(--text-secondary);
+            font-size: 15px;
+            line-height: 1.7;
+        }
+
+        /* Footer */
+        footer {
+            padding: 60px 0 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            text-align: center;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--text-primary);
+        }
+
+        .footer-note {
+            font-size: 13px;
+            color: var(--text-muted);
+            margin-bottom: 16px;
+        }
+
+        .copyright {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        /* Responsive */
+        @media (max-width: 600px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero {
+                padding: 40px 0;
+            }
+
+            .logo-container {
+                width: 160px;
+                height: 160px;
+            }
+
+            .logo-flipbook {
+                width: 140px;
+                height: 140px;
+                margin: 10px;
+            }
+
+            .logo-icon {
+                width: 140px;
+                height: 140px;
+            }
+
+            .logo-ring {
+                width: 180px;
+                height: 180px;
+            }
+
+            .logo-ring-outer {
+                width: 210px;
+                height: 210px;
+            }
+
+            .icon-label {
+                bottom: -30px;
+                font-size: 10px;
+            }
+
+            .icon-nav {
+                margin-top: 40px;
+            }
+
+            .cta-buttons {
+                flex-direction: column;
+                width: 100%;
+                padding: 0 20px;
+            }
+
+            .btn {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .realm-card {
+                padding: 30px;
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: bounce 2s infinite;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            stroke: var(--text-muted);
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+            40% { transform: translateX(-50%) translateY(-10px); }
+            60% { transform: translateX(-50%) translateY(-5px); }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects"></div>
+    <div class="grid-overlay"></div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div></div>
+                <nav class="nav-links">
+                    <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <div class="container">
+                <div class="logo-container">
+                    <div class="logo-ring"></div>
+                    <div class="logo-ring logo-ring-outer"></div>
+                    <div class="logo-flipbook">
+                        <img src="images/icon-lion.png" alt="The Guardian" class="logo-icon active" data-label="The Guardian">
+                        <img src="images/icon-gate.png" alt="The Gateway" class="logo-icon" data-label="The Gateway">
+                        <img src="images/icon-shield.png" alt="Risk Management" class="logo-icon" data-label="Risk First">
+                        <img src="images/icon-eye.png" alt="Market Intelligence" class="logo-icon" data-label="Market Intelligence">
+                        <img src="images/icon-scales.png" alt="Balance" class="logo-icon" data-label="Position Balance">
+                        <img src="images/icon-gear.png" alt="Automation" class="logo-icon" data-label="Automation">
+                        <img src="images/icon-scroll.png" alt="Knowledge" class="logo-icon" data-label="Knowledge">
+                        <img src="images/icon-crown.png" alt="Governance" class="logo-icon" data-label="Governance">
+                    </div>
+                    <div class="icon-label active">The Guardian</div>
+                    <div class="icon-nav">
+                        <button class="icon-dot active" data-index="0"></button>
+                        <button class="icon-dot" data-index="1"></button>
+                        <button class="icon-dot" data-index="2"></button>
+                        <button class="icon-dot" data-index="3"></button>
+                        <button class="icon-dot" data-index="4"></button>
+                        <button class="icon-dot" data-index="5"></button>
+                        <button class="icon-dot" data-index="6"></button>
+                        <button class="icon-dot" data-index="7"></button>
+                    </div>
+                </div>
+                
+                <h1 class="title">ASCENSION</h1>
+                
+                <p class="tagline">
+                    <span class="highlight-gold">Traditional Discipline</span> · <span class="highlight-cyan">Digital Frontier</span>
+                </p>
+                
+                <p class="intro">
+                    Something is coming. Where tradition meets the frontier.
+                </p>
+                
+                <div class="cta-buttons">
+                    <a href="https://discord.gg/BBSs8auWBu" target="_blank" class="btn btn-primary">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
+                        </svg>
+                        Join Discord
+                    </a>
+                    <a href="#" class="btn btn-secondary btn-disabled" title="Coming Soon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
+                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
+                        </svg>
+                        Whitepaper — Soon
+                    </a>
+                    <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
+                            <line x1="8" y1="21" x2="16" y2="21"/>
+                            <line x1="12" y1="17" x2="12" y2="21"/>
+                        </svg>
+                        dApp — Soon
+                    </a>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+            </div>
+            <p class="footer-note">
+                Coming Soon
+            </p>
+            <p class="copyright">
+                © 2025 Ascension. All rights reserved.
+            </p>
+        </div>
+    </footer>
+    <script>
+        // Icon Flipbook Animation
+        const icons = document.querySelectorAll('.logo-icon');
+        const dots = document.querySelectorAll('.icon-dot');
+        const label = document.querySelector('.icon-label');
+        let currentIndex = 0;
+        let autoRotate;
+
+        function showIcon(index) {
+            // Hide all icons
+            icons.forEach((icon, i) => {
+                icon.classList.remove('active');
+            });
+            dots.forEach(dot => dot.classList.remove('active'));
+            
+            // Show selected icon
+            icons[index].classList.add('active');
+            dots[index].classList.add('active');
+            
+            // Update label
+            label.textContent = icons[index].dataset.label;
+            label.classList.add('active');
+            
+            currentIndex = index;
+        }
+
+        function nextIcon() {
+            const next = (currentIndex + 1) % icons.length;
+            showIcon(next);
+        }
+
+        // Auto-rotate every 4 seconds
+        function startAutoRotate() {
+            autoRotate = setInterval(nextIcon, 4000);
+        }
+
+        function stopAutoRotate() {
+            clearInterval(autoRotate);
+        }
+
+        // Click handlers for dots
+        dots.forEach((dot, index) => {
+            dot.addEventListener('click', () => {
+                stopAutoRotate();
+                showIcon(index);
+                startAutoRotate();
+            });
+        });
+
+        // Pause on hover
+        const flipbook = document.querySelector('.logo-flipbook');
+        flipbook.addEventListener('mouseenter', stopAutoRotate);
+        flipbook.addEventListener('mouseleave', startAutoRotate);
+
+        // Start animation
+        startAutoRotate();
+    </script>
+</body>
+</html>
