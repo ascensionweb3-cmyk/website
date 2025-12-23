@@ -68,7 +68,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: 
+            background:
                 radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
                 radial-gradient(ellipse at 50% 50%, rgba(245, 158, 11, 0.03) 0%, transparent 70%);
@@ -92,7 +92,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: 
+            background-image:
                 linear-gradient(rgba(6, 182, 212, 0.03) 1px, transparent 1px),
                 linear-gradient(90deg, rgba(6, 182, 212, 0.03) 1px, transparent 1px);
             background-size: 50px 50px;
@@ -101,17 +101,22 @@
         }
 
         .container {
-            position: relative;
-            z-index: 1;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 24px;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
         }
 
         /* Header */
         header {
-            padding: 24px 0;
-            position: relative;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: linear-gradient(to bottom, rgba(10, 10, 15, 0.95), transparent);
         }
 
         .header-inner {
@@ -122,70 +127,75 @@
 
         .nav-links {
             display: flex;
-            gap: 32px;
+            gap: 30px;
+            align-items: center;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
             font-weight: 500;
-            letter-spacing: 0.05em;
+            font-size: 14px;
             text-transform: uppercase;
+            letter-spacing: 1px;
             transition: color 0.3s ease;
         }
 
         .nav-links a:hover {
-            color: var(--cyan-light);
+            color: var(--cyan);
+        }
+
+        .nav-links .team-login {
+            padding: 8px 16px;
+            border: 1px solid var(--gold);
+            border-radius: 4px;
+            color: var(--gold);
+            font-size: 12px;
+        }
+
+        .nav-links .team-login:hover {
+            background: var(--gold);
+            color: var(--bg-dark);
         }
 
         /* Hero Section */
         .hero {
-            min-height: calc(100vh - 80px);
+            min-height: 100vh;
             display: flex;
-            flex-direction: column;
-            justify-content: center;
             align-items: center;
+            justify-content: center;
             text-align: center;
-            padding: 60px 0;
+            padding: 120px 20px 80px;
         }
 
         .logo-container {
             position: relative;
             margin-bottom: 40px;
-            animation: fadeInUp 1s ease-out;
-            width: 200px;
-            height: 200px;
         }
 
         .logo-flipbook {
+            width: 160px;
+            height: 160px;
             position: relative;
-            width: 180px;
-            height: 180px;
-            margin: 10px;
+            margin: 0 auto;
         }
 
         .logo-icon {
             position: absolute;
             top: 0;
             left: 0;
-            width: 180px;
-            height: 180px;
+            width: 100%;
+            height: 100%;
             object-fit: contain;
             opacity: 0;
-            filter: drop-shadow(0 0 30px var(--cyan-glow));
-            transition: opacity 0.8s ease-in-out, transform 0.8s ease-in-out;
-            transform: rotateY(90deg);
+            transform: scale(0.8) rotateY(90deg);
+            transition: all 0.6s ease;
+            filter: drop-shadow(0 0 20px var(--gold-glow));
         }
 
         .logo-icon.active {
             opacity: 1;
-            transform: rotateY(0deg);
-            filter: drop-shadow(0 0 40px var(--gold-glow)) drop-shadow(0 0 60px var(--cyan-glow));
-        }
-
-        .logo-icon.svg-icon {
-            background: transparent;
+            transform: scale(1) rotateY(0);
         }
 
         .logo-ring {
@@ -193,189 +203,160 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 220px;
-            height: 220px;
-            border: 1px solid rgba(245, 158, 11, 0.2);
+            width: 200px;
+            height: 200px;
+            border: 1px solid rgba(245, 158, 11, 0.3);
             border-radius: 50%;
-            animation: pulse 4s ease-in-out infinite;
+            animation: pulse-ring 3s ease-in-out infinite;
         }
 
         .logo-ring-outer {
-            width: 260px;
-            height: 260px;
-            border-color: rgba(6, 182, 212, 0.1);
+            width: 240px;
+            height: 240px;
+            border-color: rgba(6, 182, 212, 0.2);
             animation-delay: 0.5s;
         }
 
-        @keyframes pulse {
+        @keyframes pulse-ring {
             0%, 100% { transform: translate(-50%, -50%) scale(1); opacity: 0.5; }
             50% { transform: translate(-50%, -50%) scale(1.05); opacity: 0.8; }
         }
 
-        /* Icon label */
         .icon-label {
             position: absolute;
-            bottom: -35px;
+            bottom: -40px;
             left: 50%;
             transform: translateX(-50%);
             font-family: 'Cinzel', serif;
             font-size: 12px;
-            letter-spacing: 0.15em;
+            color: var(--gold);
             text-transform: uppercase;
-            color: var(--text-muted);
-            opacity: 0;
-            transition: opacity 0.5s ease;
+            letter-spacing: 3px;
             white-space: nowrap;
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
 
         .icon-label.active {
             opacity: 1;
         }
 
-        /* Navigation dots */
         .icon-nav {
             display: flex;
-            gap: 10px;
             justify-content: center;
-            margin-top: 50px;
+            gap: 8px;
+            margin-top: 60px;
         }
 
         .icon-dot {
             width: 8px;
             height: 8px;
             border-radius: 50%;
-            background: var(--text-muted);
+            border: 1px solid var(--text-muted);
+            background: transparent;
             cursor: pointer;
             transition: all 0.3s ease;
-            border: none;
-            padding: 0;
         }
 
         .icon-dot:hover {
-            background: var(--cyan);
+            border-color: var(--gold);
         }
 
         .icon-dot.active {
-            background: var(--cyan-light);
-            box-shadow: 0 0 10px var(--cyan-glow);
+            background: var(--gold);
+            border-color: var(--gold);
+            box-shadow: 0 0 10px var(--gold-glow);
         }
 
         .title {
             font-family: 'Cinzel', serif;
             font-size: clamp(48px, 10vw, 80px);
             font-weight: 600;
-            letter-spacing: 0.2em;
-            margin-bottom: 16px;
-            background: linear-gradient(135deg, var(--text-primary) 0%, var(--gold-light) 50%, var(--text-primary) 100%);
-            background-size: 200% auto;
+            letter-spacing: 12px;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--cyan) 100%);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            animation: fadeInUp 1s ease-out 0.2s both, shimmer 8s linear infinite;
-        }
-
-        @keyframes shimmer {
-            0% { background-position: 0% center; }
-            100% { background-position: 200% center; }
         }
 
         .tagline {
-            font-family: 'Rajdhani', sans-serif;
-            font-size: clamp(18px, 3vw, 24px);
-            font-weight: 400;
-            color: var(--text-secondary);
-            letter-spacing: 0.15em;
+            font-size: 18px;
+            letter-spacing: 4px;
+            margin-bottom: 30px;
             text-transform: uppercase;
-            margin-bottom: 32px;
-            animation: fadeInUp 1s ease-out 0.4s both;
         }
 
-        .tagline .highlight-gold {
-            color: var(--gold-light);
+        .highlight-gold {
+            color: var(--gold);
         }
 
-        .tagline .highlight-cyan {
-            color: var(--cyan-light);
+        .highlight-cyan {
+            color: var(--cyan);
         }
 
         .intro {
-            max-width: 700px;
-            font-size: 18px;
+            font-size: 20px;
             color: var(--text-secondary);
-            margin-bottom: 48px;
-            line-height: 1.8;
-            animation: fadeInUp 1s ease-out 0.6s both;
-        }
-
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            max-width: 600px;
+            margin: 0 auto 40px;
         }
 
         /* CTA Buttons */
         .cta-buttons {
             display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+            gap: 16px;
             justify-content: center;
-            animation: fadeInUp 1s ease-out 0.8s both;
+            flex-wrap: wrap;
         }
 
         .btn {
             display: inline-flex;
             align-items: center;
             gap: 10px;
-            padding: 16px 32px;
+            padding: 14px 28px;
+            border-radius: 8px;
             font-family: 'Rajdhani', sans-serif;
             font-size: 16px;
             font-weight: 600;
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
             text-decoration: none;
-            border-radius: 4px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
             transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn svg {
+            width: 20px;
+            height: 20px;
         }
 
         .btn-primary {
-            background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 100%);
-            color: var(--bg-dark);
-            border: none;
+            background: linear-gradient(135deg, var(--purple) 0%, var(--cyan) 100%);
+            color: white;
+            box-shadow: 0 4px 20px rgba(139, 92, 246, 0.3);
         }
 
         .btn-primary:hover {
             transform: translateY(-2px);
-            box-shadow: 0 10px 40px var(--gold-glow);
+            box-shadow: 0 6px 30px rgba(139, 92, 246, 0.4);
         }
 
         .btn-secondary {
             background: transparent;
-            color: var(--cyan-light);
-            border: 1px solid var(--cyan);
+            border: 1px solid var(--gold);
+            color: var(--gold);
         }
 
         .btn-secondary:hover {
-            background: rgba(6, 182, 212, 0.1);
-            box-shadow: 0 0 30px var(--cyan-glow);
-            transform: translateY(-2px);
+            background: rgba(245, 158, 11, 0.1);
         }
 
         .btn-ghost {
             background: transparent;
-            color: var(--text-secondary);
             border: 1px solid var(--text-muted);
-        }
-
-        .btn-ghost:hover {
-            color: var(--text-primary);
-            border-color: var(--text-secondary);
+            color: var(--text-muted);
         }
 
         .btn-disabled {
@@ -385,191 +366,13 @@
 
         .btn-disabled:hover {
             transform: none;
-            box-shadow: none;
-        }
-
-        /* Icon styles */
-        .btn svg {
-            width: 20px;
-            height: 20px;
-        }
-
-        /* Two Realms Section */
-        .realms-section {
-            padding: 100px 0;
-        }
-
-        .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 14px;
-            font-weight: 500;
-            letter-spacing: 0.3em;
-            text-transform: uppercase;
-            text-align: center;
-            color: var(--text-muted);
-            margin-bottom: 16px;
-        }
-
-        .section-heading {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(28px, 5vw, 40px);
-            font-weight: 600;
-            text-align: center;
-            margin-bottom: 60px;
-        }
-
-        .realms-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 40px;
-        }
-
-        @media (max-width: 768px) {
-            .realms-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .realm-card {
-            background: var(--bg-card);
-            backdrop-filter: blur(10px);
-            border-radius: 12px;
-            padding: 40px;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            transition: all 0.4s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .realm-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 3px;
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-            opacity: 0;
-            transition: opacity 0.4s ease;
-        }
-
-        .realm-card.tradfi::before {
-            background: linear-gradient(90deg, transparent, var(--gold), transparent);
-        }
-
-        .realm-card.crypto::before {
-            background: linear-gradient(90deg, transparent, var(--cyan), transparent);
-        }
-
-        .realm-card:hover::before {
-            opacity: 1;
-        }
-
-        .realm-card:hover {
-            transform: translateY(-5px);
-            border-color: rgba(255, 255, 255, 0.1);
-        }
-
-        .realm-card.tradfi:hover {
-            box-shadow: 0 20px 60px rgba(245, 158, 11, 0.1);
-        }
-
-        .realm-card.crypto:hover {
-            box-shadow: 0 20px 60px rgba(6, 182, 212, 0.1);
-        }
-
-        .realm-icon {
-            font-size: 40px;
-            margin-bottom: 20px;
-        }
-
-        .realm-name {
-            font-family: 'Cinzel', serif;
-            font-size: 24px;
-            font-weight: 600;
-            margin-bottom: 8px;
-        }
-
-        .realm-card.tradfi .realm-name {
-            color: var(--gold-light);
-        }
-
-        .realm-card.crypto .realm-name {
-            color: var(--cyan-light);
-        }
-
-        .realm-subtitle {
-            font-size: 14px;
-            color: var(--text-muted);
-            letter-spacing: 0.1em;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-        }
-
-        .realm-description {
-            color: var(--text-secondary);
-            line-height: 1.8;
-        }
-
-        /* Features Section */
-        .features-section {
-            padding: 80px 0;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 40px;
-        }
-
-        @media (max-width: 900px) {
-            .features-grid {
-                grid-template-columns: 1fr;
-            }
-        }
-
-        .feature {
-            text-align: center;
-            padding: 20px;
-        }
-
-        .feature-icon {
-            width: 60px;
-            height: 60px;
-            margin: 0 auto 20px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 12px;
-            background: rgba(139, 92, 246, 0.1);
-            border: 1px solid rgba(139, 92, 246, 0.2);
-        }
-
-        .feature-icon svg {
-            width: 28px;
-            height: 28px;
-            stroke: var(--purple-light);
-        }
-
-        .feature-title {
-            font-family: 'Cinzel', serif;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 12px;
-        }
-
-        .feature-text {
-            color: var(--text-secondary);
-            font-size: 15px;
-            line-height: 1.7;
         }
 
         /* Footer */
         footer {
-            padding: 60px 0 40px;
-            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            padding: 60px 20px;
             text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
         }
 
         .footer-links {
@@ -588,54 +391,35 @@
         }
 
         .footer-links a:hover {
-            color: var(--text-primary);
+            color: var(--cyan);
         }
 
         .footer-note {
-            font-size: 13px;
             color: var(--text-muted);
-            margin-bottom: 16px;
+            font-size: 14px;
+            margin-bottom: 20px;
         }
 
         .copyright {
-            font-size: 12px;
             color: var(--text-muted);
+            font-size: 12px;
         }
 
-        /* Responsive */
-        @media (max-width: 600px) {
-            .nav-links {
-                display: none;
+        /* Mobile */
+        @media (max-width: 768px) {
+            .logo-flipbook {
+                width: 120px;
+                height: 120px;
             }
 
-            .hero {
-                padding: 40px 0;
-            }
-
-            .logo-container {
+            .logo-ring {
                 width: 160px;
                 height: 160px;
             }
 
-            .logo-flipbook {
-                width: 140px;
-                height: 140px;
-                margin: 10px;
-            }
-
-            .logo-icon {
-                width: 140px;
-                height: 140px;
-            }
-
-            .logo-ring {
-                width: 180px;
-                height: 180px;
-            }
-
             .logo-ring-outer {
-                width: 210px;
-                height: 210px;
+                width: 200px;
+                height: 200px;
             }
 
             .icon-label {
@@ -658,30 +442,13 @@
                 justify-content: center;
             }
 
-            .realm-card {
-                padding: 30px;
+            .nav-links {
+                gap: 15px;
             }
-        }
 
-        /* Scroll indicator */
-        .scroll-indicator {
-            position: absolute;
-            bottom: 40px;
-            left: 50%;
-            transform: translateX(-50%);
-            animation: bounce 2s infinite;
-        }
-
-        .scroll-indicator svg {
-            width: 24px;
-            height: 24px;
-            stroke: var(--text-muted);
-        }
-
-        @keyframes bounce {
-            0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
-            40% { transform: translateX(-50%) translateY(-10px); }
-            60% { transform: translateX(-50%) translateY(-5px); }
+            .nav-links a {
+                font-size: 12px;
+            }
         }
     </style>
 </head>
@@ -694,7 +461,9 @@
             <div class="header-inner">
                 <div></div>
                 <nav class="nav-links">
+                    <a href="herald.html">Herald Cries</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                    <a href="https://dxtb15m9p5qr6.cloudfront.net" target="_blank" class="team-login">Team Login</a>
                 </nav>
             </div>
         </div>
@@ -769,7 +538,9 @@
     <footer>
         <div class="container">
             <div class="footer-links">
+                <a href="herald.html">Herald Cries</a>
                 <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                <a href="https://dxtb15m9p5qr6.cloudfront.net" target="_blank">Team Login</a>
             </div>
             <p class="footer-note">
                 Coming Soon
@@ -779,6 +550,7 @@
             </p>
         </div>
     </footer>
+    
     <script>
         // Icon Flipbook Animation
         const icons = document.querySelectorAll('.logo-icon');
@@ -788,17 +560,14 @@
         let autoRotate;
 
         function showIcon(index) {
-            // Hide all icons
             icons.forEach((icon, i) => {
                 icon.classList.remove('active');
             });
             dots.forEach(dot => dot.classList.remove('active'));
             
-            // Show selected icon
             icons[index].classList.add('active');
             dots[index].classList.add('active');
             
-            // Update label
             label.textContent = icons[index].dataset.label;
             label.classList.add('active');
             
@@ -810,7 +579,6 @@
             showIcon(next);
         }
 
-        // Auto-rotate every 4 seconds
         function startAutoRotate() {
             autoRotate = setInterval(nextIcon, 4000);
         }
@@ -819,7 +587,6 @@
             clearInterval(autoRotate);
         }
 
-        // Click handlers for dots
         dots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
                 stopAutoRotate();
@@ -828,12 +595,10 @@
             });
         });
 
-        // Pause on hover
         const flipbook = document.querySelector('.logo-flipbook');
         flipbook.addEventListener('mouseenter', stopAutoRotate);
         flipbook.addEventListener('mouseleave', startAutoRotate);
 
-        // Start animation
         startAutoRotate();
     </script>
 </body>

@@ -1,0 +1,617 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Herald Cries | Ascension</title>
+    <meta name="description" content="Market intelligence from the Ascension realm. Real-time insights from TradFi and Crypto markets.">
+    
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="images/logo.png">
+    
+    <style>
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: rgba(20, 20, 30, 0.8);
+            --gold: #f59e0b;
+            --gold-light: #fbbf24;
+            --gold-glow: rgba(245, 158, 11, 0.4);
+            --cyan: #06b6d4;
+            --cyan-light: #22d3ee;
+            --cyan-glow: rgba(6, 182, 212, 0.4);
+            --purple: #8b5cf6;
+            --text-primary: #f1f5f9;
+            --text-secondary: #94a3b8;
+            --text-muted: #64748b;
+            --border: rgba(255, 255, 255, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            line-height: 1.6;
+        }
+
+        /* Background Effects */
+        .bg-effects {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            background:
+                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 0 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Header */
+        header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 100;
+            padding: 20px 0;
+            background: linear-gradient(to bottom, rgba(10, 10, 15, 0.98), rgba(10, 10, 15, 0.9));
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .header-inner {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .logo-link {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+        }
+
+        .logo-link img {
+            width: 40px;
+            height: 40px;
+        }
+
+        .logo-text {
+            font-family: 'Cinzel', serif;
+            font-size: 20px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 25px;
+            align-items: center;
+        }
+
+        .nav-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-weight: 500;
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cyan);
+        }
+
+        /* Main Content */
+        main {
+            padding: 100px 0 60px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-top: 20px;
+        }
+
+        .page-title {
+            font-family: 'Cinzel', serif;
+            font-size: clamp(32px, 6vw, 48px);
+            font-weight: 600;
+            letter-spacing: 6px;
+            margin-bottom: 15px;
+            background: linear-gradient(135deg, var(--gold) 0%, var(--cyan) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .page-subtitle {
+            color: var(--text-secondary);
+            font-size: 18px;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        /* Realm Tabs */
+        .realm-tabs {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+
+        .realm-tab {
+            padding: 12px 30px;
+            background: transparent;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-secondary);
+            font-family: 'Rajdhani', sans-serif;
+            font-size: 14px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .realm-tab:hover {
+            border-color: var(--text-muted);
+        }
+
+        .realm-tab.active {
+            border-color: var(--cyan);
+            color: var(--cyan);
+            background: rgba(6, 182, 212, 0.1);
+        }
+
+        .realm-tab.active.tradfi {
+            border-color: var(--gold);
+            color: var(--gold);
+            background: rgba(245, 158, 11, 0.1);
+        }
+
+        /* Tweet Feed */
+        .tweet-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .tweet-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            transition: all 0.3s ease;
+        }
+
+        .tweet-card:hover {
+            border-color: var(--cyan);
+            box-shadow: 0 0 30px rgba(6, 182, 212, 0.1);
+        }
+
+        .tweet-card.tradfi:hover {
+            border-color: var(--gold);
+            box-shadow: 0 0 30px rgba(245, 158, 11, 0.1);
+        }
+
+        .tweet-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 15px;
+        }
+
+        .tweet-realm {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .realm-icon {
+            font-size: 20px;
+        }
+
+        .realm-name {
+            font-size: 12px;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .realm-name.crypto {
+            color: var(--cyan);
+        }
+
+        .realm-name.tradfi {
+            color: var(--gold);
+        }
+
+        .tweet-time {
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .tweet-content {
+            font-size: 18px;
+            line-height: 1.6;
+            color: var(--text-primary);
+            margin-bottom: 15px;
+        }
+
+        .tweet-source {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .source-link {
+            font-size: 13px;
+            color: var(--text-muted);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .source-link:hover {
+            color: var(--cyan);
+        }
+
+        .tweet-score {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            color: var(--text-muted);
+        }
+
+        .score-value {
+            padding: 4px 10px;
+            background: rgba(139, 92, 246, 0.2);
+            border-radius: 12px;
+            color: var(--purple);
+            font-weight: 600;
+        }
+
+        .score-value.high {
+            background: rgba(0, 255, 136, 0.2);
+            color: #00ff88;
+        }
+
+        /* Loading State */
+        .loading {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-muted);
+        }
+
+        .loading-spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid var(--border);
+            border-top-color: var(--cyan);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 20px;
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        /* Empty State */
+        .empty-state {
+            text-align: center;
+            padding: 80px 20px;
+        }
+
+        .empty-icon {
+            font-size: 60px;
+            margin-bottom: 20px;
+            opacity: 0.5;
+        }
+
+        .empty-text {
+            color: var(--text-muted);
+            font-size: 18px;
+        }
+
+        /* Twitter Link */
+        .twitter-banner {
+            background: linear-gradient(135deg, rgba(29, 161, 242, 0.1) 0%, rgba(139, 92, 246, 0.1) 100%);
+            border: 1px solid rgba(29, 161, 242, 0.3);
+            border-radius: 12px;
+            padding: 24px;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .twitter-banner p {
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+        }
+
+        .twitter-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            padding: 12px 24px;
+            background: #1da1f2;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+
+        .twitter-link:hover {
+            background: #1a91da;
+            transform: translateY(-2px);
+        }
+
+        .twitter-link svg {
+            width: 20px;
+            height: 20px;
+        }
+
+        /* Footer */
+        footer {
+            padding: 40px 20px;
+            text-align: center;
+            border-top: 1px solid var(--border);
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+
+        .footer-links a {
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 14px;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--cyan);
+        }
+
+        .copyright {
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        /* Mobile */
+        @media (max-width: 768px) {
+            .nav-links {
+                gap: 15px;
+            }
+
+            .nav-links a {
+                font-size: 12px;
+            }
+
+            .realm-tabs {
+                flex-wrap: wrap;
+            }
+
+            .realm-tab {
+                padding: 10px 20px;
+                font-size: 12px;
+            }
+
+            .tweet-content {
+                font-size: 16px;
+            }
+
+            .logo-text {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="bg-effects"></div>
+
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <a href="index.html" class="logo-link">
+                    <img src="images/icon-lion.png" alt="Ascension">
+                    <span class="logo-text">Ascension</span>
+                </a>
+                <nav class="nav-links">
+                    <a href="index.html">Home</a>
+                    <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                </nav>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="container">
+            <div class="page-header">
+                <h1 class="page-title">⚔ HERALD CRIES ⚔</h1>
+                <p class="page-subtitle">
+                    Market intelligence from the realm. Where traditional wisdom meets digital frontier.
+                </p>
+            </div>
+
+            <div class="twitter-banner">
+                <p>Follow us for real-time market alerts</p>
+                <a href="https://twitter.com/AscensionRealm" target="_blank" class="twitter-link">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                    </svg>
+                    @AscensionRealm
+                </a>
+            </div>
+
+            <div class="realm-tabs">
+                <button class="realm-tab active" data-realm="all">All Realms</button>
+                <button class="realm-tab" data-realm="crypto">🔮 Crypto</button>
+                <button class="realm-tab tradfi" data-realm="tradfi">🏰 TradFi</button>
+            </div>
+
+            <div class="tweet-feed" id="tweet-feed">
+                <div class="loading">
+                    <div class="loading-spinner"></div>
+                    <p>Gathering scrolls from the realm...</p>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                <a href="https://twitter.com/AscensionRealm" target="_blank">Twitter</a>
+            </div>
+            <p class="copyright">
+                © 2025 Ascension. All rights reserved.
+            </p>
+        </div>
+    </footer>
+
+    <script>
+        const API_BASE = 'https://tps3qkvor3.execute-api.us-east-1.amazonaws.com/prod';
+        let currentRealm = 'all';
+        let allNews = [];
+
+        // Format time ago
+        function formatTimeAgo(date) {
+            if (!date) return '';
+            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+            if (seconds < 60) return `${seconds}s ago`;
+            const minutes = Math.floor(seconds / 60);
+            if (minutes < 60) return `${minutes}m ago`;
+            const hours = Math.floor(minutes / 60);
+            if (hours < 24) return `${hours}h ago`;
+            const days = Math.floor(hours / 24);
+            return `${days}d ago`;
+        }
+
+        // Render tweets
+        function renderTweets(news) {
+            const feed = document.getElementById('tweet-feed');
+            
+            // Filter by realm
+            let filtered = news;
+            if (currentRealm !== 'all') {
+                filtered = news.filter(item => item.realm === currentRealm);
+            }
+
+            // Only show significant news (score >= 5)
+            filtered = filtered.filter(item => item.score >= 5);
+
+            if (filtered.length === 0) {
+                feed.innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-icon">📜</div>
+                        <p class="empty-text">No herald cries at this time. The realm is quiet.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            feed.innerHTML = filtered.map(item => `
+                <div class="tweet-card ${item.realm}">
+                    <div class="tweet-header">
+                        <div class="tweet-realm">
+                            <span class="realm-icon">${item.realm === 'crypto' ? '🔮' : '🏰'}</span>
+                            <span class="realm-name ${item.realm}">${item.realm === 'crypto' ? 'Crypto Realm' : 'TradFi Realm'}</span>
+                        </div>
+                        <span class="tweet-time">${formatTimeAgo(item.timestamp)}</span>
+                    </div>
+                    <div class="tweet-content">${item.title}</div>
+                    <div class="tweet-source">
+                        <span class="source-link">Market Intelligence</span>
+                        <div class="tweet-score">
+                            <span>Significance:</span>
+                            <span class="score-value ${item.score >= 7 ? 'high' : ''}">${item.score}/10</span>
+                        </div>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // Fetch news from API
+        async function fetchNews() {
+            try {
+                // This endpoint is public - no auth required for viewing
+                const response = await fetch(`${API_BASE}/api/news`);
+                
+                if (response.ok) {
+                    allNews = await response.json();
+                    renderTweets(allNews);
+                } else {
+                    // Use mock data if API fails
+                    loadMockData();
+                }
+            } catch (err) {
+                console.error('Failed to fetch news:', err);
+                loadMockData();
+            }
+        }
+
+        // Mock data for demo
+        function loadMockData() {
+            allNews = [
+                { title: 'Gold, Silver, and Copper Hit New Highs as Commodity Markets Rally', score: 8, realm: 'tradfi', timestamp: new Date(Date.now() - 300000).toISOString() },
+                { title: 'JPMorgan expands institutional crypto custody services, signaling broader adoption', score: 7, realm: 'crypto', timestamp: new Date(Date.now() - 720000).toISOString() },
+                { title: 'Federal Reserve signals potential rate adjustments in 2025 economic outlook', score: 7, realm: 'tradfi', timestamp: new Date(Date.now() - 1500000).toISOString() },
+                { title: 'Bitcoin ETF inflows continue as institutional demand strengthens', score: 6, realm: 'crypto', timestamp: new Date(Date.now() - 2400000).toISOString() },
+                { title: 'US crypto legislation advances with bipartisan support in Senate committee', score: 6, realm: 'crypto', timestamp: new Date(Date.now() - 3600000).toISOString() },
+                { title: 'Tech sector earnings expectations drive pre-market momentum', score: 5, realm: 'tradfi', timestamp: new Date(Date.now() - 5400000).toISOString() },
+            ];
+            renderTweets(allNews);
+        }
+
+        // Tab switching
+        document.querySelectorAll('.realm-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                document.querySelectorAll('.realm-tab').forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                currentRealm = tab.dataset.realm;
+                renderTweets(allNews);
+            });
+        });
+
+        // Initial load
+        fetchNews();
+
+        // Refresh every 2 minutes
+        setInterval(fetchNews, 120000);
+    </script>
+</body>
+</html>
