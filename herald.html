@@ -4,108 +4,75 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herald Cries | Ascension</title>
-    <meta name="description" content="Market intelligence from the Ascension realm. Real-time insights from TradFi and Crypto markets.">
-    
-    <!-- Fonts -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;500;600;700&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    
-    <!-- Favicon -->
-    <link rel="icon" type="image/png" href="images/logo.png">
-    
+    <link rel="icon" type="image/png" href="images/favicon.png">
     <style>
-        :root {
-            --bg-dark: #0a0a0f;
-            --bg-card: rgba(20, 20, 30, 0.8);
-            --bg-card-hover: rgba(30, 30, 45, 0.9);
-            --gold: #f59e0b;
-            --gold-light: #fbbf24;
-            --gold-glow: rgba(245, 158, 11, 0.4);
-            --cyan: #06b6d4;
-            --cyan-light: #22d3ee;
-            --cyan-glow: rgba(6, 182, 212, 0.4);
-            --purple: #8b5cf6;
-            --green: #10b981;
-            --red: #ef4444;
-            --twitter-blue: #1da1f2;
-            --text-primary: #f1f5f9;
-            --text-secondary: #94a3b8;
-            --text-muted: #64748b;
-            --border: rgba(255, 255, 255, 0.1);
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        :root {
+            --bg-dark: #0a0a0f;
+            --bg-card: #12121a;
+            --bg-card-hover: #1a1a25;
+            --border-color: #2a2a3a;
+            --text-primary: #e8e8f0;
+            --text-secondary: #8888a0;
+            --cyan: #06b6d4;
+            --gold: #f59e0b;
+            --purple: #8b5cf6;
+            --green: #10b981;
+            --red: #ef4444;
+        }
+
         body {
-            font-family: 'Rajdhani', sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
-            line-height: 1.6;
-        }
-
-        /* Background Effects */
-        .bg-effects {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-            z-index: 0;
-            background:
-                radial-gradient(ellipse at 20% 20%, rgba(139, 92, 246, 0.08) 0%, transparent 50%),
-                radial-gradient(ellipse at 80% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
         }
 
         .container {
-            max-width: 1200px;
+            max-width: 1400px;
             margin: 0 auto;
             padding: 0 20px;
-            position: relative;
-            z-index: 1;
         }
 
         /* Header */
         header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            z-index: 100;
             padding: 20px 0;
-            background: linear-gradient(to bottom, rgba(10, 10, 15, 0.98), rgba(10, 10, 15, 0.9));
+            border-bottom: 1px solid var(--border-color);
+            background: rgba(10, 10, 15, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 100;
             backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border);
         }
 
-        .header-inner {
+        .header-content {
             display: flex;
             justify-content: space-between;
             align-items: center;
         }
 
-        .logo-link {
+        .logo {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
+            color: var(--text-primary);
         }
 
-        .logo-link img {
+        .logo img {
             width: 40px;
             height: 40px;
         }
 
         .logo-text {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--cyan) 100%);
+            font-size: 1.5rem;
+            font-weight: 700;
+            background: linear-gradient(135deg, var(--cyan), var(--gold));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -113,86 +80,41 @@
 
         .nav-links {
             display: flex;
-            gap: 25px;
-            align-items: center;
+            gap: 20px;
         }
 
         .nav-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-weight: 500;
-            font-size: 14px;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
         }
 
         .nav-links a:hover {
-            color: var(--cyan);
+            color: var(--text-primary);
         }
 
-        /* Main Content */
+        /* Main Layout */
         main {
-            padding: 100px 0 60px;
-        }
-
-        .page-header {
-            text-align: center;
-            margin-bottom: 40px;
-            padding-top: 20px;
+            padding: 40px 0;
         }
 
         .page-title {
-            font-family: 'Cinzel', serif;
-            font-size: clamp(32px, 6vw, 48px);
-            font-weight: 600;
-            letter-spacing: 6px;
-            margin-bottom: 15px;
-            background: linear-gradient(135deg, var(--gold) 0%, var(--cyan) 100%);
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .page-title h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--cyan), var(--purple));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
         }
 
-        .page-subtitle {
+        .page-title p {
             color: var(--text-secondary);
-            font-size: 18px;
-            max-width: 600px;
-            margin: 0 auto;
-        }
-
-        /* Stats Bar */
-        .stats-bar {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 30px;
-            flex-wrap: wrap;
-        }
-
-        .stat-item {
-            text-align: center;
-        }
-
-        .stat-value {
-            font-size: 24px;
-            font-weight: 700;
-            color: var(--cyan);
-        }
-
-        .stat-value.tradfi {
-            color: var(--gold);
-        }
-
-        .stat-value.twitter {
-            color: var(--twitter-blue);
-        }
-
-        .stat-label {
-            font-size: 12px;
-            color: var(--text-muted);
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            font-size: 1.1rem;
         }
 
         /* Two Column Layout */
@@ -200,7 +122,6 @@
             display: grid;
             grid-template-columns: 1fr 380px;
             gap: 30px;
-            align-items: start;
         }
 
         @media (max-width: 1024px) {
@@ -209,351 +130,301 @@
             }
         }
 
-        /* Section Headers */
+        /* News Section */
+        .news-section {
+            background: var(--bg-card);
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+        }
+
         .section-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
+            align-items: center;
             margin-bottom: 20px;
             padding-bottom: 15px;
-            border-bottom: 1px solid var(--border);
+            border-bottom: 1px solid var(--border-color);
         }
 
         .section-title {
-            font-family: 'Cinzel', serif;
-            font-size: 20px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .section-title .icon {
-            font-size: 24px;
+            font-size: 1.3rem;
+            font-weight: 600;
         }
 
         /* Realm Tabs */
         .realm-tabs {
             display: flex;
             gap: 8px;
-            flex-wrap: wrap;
         }
 
         .realm-tab {
             padding: 8px 16px;
+            border: 1px solid var(--border-color);
             background: transparent;
-            border: 1px solid var(--border);
-            border-radius: 6px;
             color: var(--text-secondary);
-            font-family: 'Rajdhani', sans-serif;
-            font-size: 12px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+            border-radius: 20px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: all 0.2s;
+            font-size: 0.9rem;
         }
 
         .realm-tab:hover {
-            border-color: var(--text-muted);
+            border-color: var(--text-secondary);
         }
 
         .realm-tab.active {
+            background: var(--cyan);
             border-color: var(--cyan);
-            color: var(--cyan);
-            background: rgba(6, 182, 212, 0.1);
+            color: var(--bg-dark);
         }
 
         .realm-tab.active.tradfi {
+            background: var(--gold);
             border-color: var(--gold);
-            color: var(--gold);
-            background: rgba(245, 158, 11, 0.1);
         }
 
-        /* News Feed */
-        .news-column {
-            min-width: 0;
-        }
-
+        /* News Cards */
         .news-feed {
             display: flex;
             flex-direction: column;
-            gap: 16px;
+            gap: 15px;
+            max-height: 700px;
+            overflow-y: auto;
         }
 
         .news-card {
-            background: var(--bg-card);
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 20px;
-            transition: all 0.3s ease;
+            background: var(--bg-card-hover);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
             cursor: pointer;
-            text-decoration: none;
-            display: block;
-            color: inherit;
         }
 
         .news-card:hover {
-            background: var(--bg-card-hover);
             border-color: var(--cyan);
-            transform: translateY(-2px);
-            box-shadow: 0 10px 40px rgba(6, 182, 212, 0.15);
+            transform: translateX(4px);
         }
 
         .news-card.tradfi:hover {
             border-color: var(--gold);
-            box-shadow: 0 10px 40px rgba(245, 158, 11, 0.15);
-        }
-
-        .news-card.breaking {
-            border-color: var(--red);
-            background: rgba(239, 68, 68, 0.1);
-        }
-
-        .news-header {
-            display: flex;
-            align-items: flex-start;
-            justify-content: space-between;
-            gap: 15px;
-            margin-bottom: 12px;
         }
 
         .news-meta {
             display: flex;
+            justify-content: space-between;
             align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
+            margin-bottom: 8px;
+            font-size: 0.8rem;
         }
 
-        .news-realm {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 11px;
-            font-weight: 600;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        .news-realm.crypto {
-            background: rgba(6, 182, 212, 0.2);
+        .news-source {
             color: var(--cyan);
+            font-weight: 500;
         }
 
-        .news-realm.tradfi {
+        .news-card.tradfi .news-source {
+            color: var(--gold);
+        }
+
+        .news-time {
+            color: var(--text-secondary);
+        }
+
+        .news-title {
+            font-size: 1rem;
+            line-height: 1.4;
+            color: var(--text-primary);
+        }
+
+        .news-score {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .score-high {
+            background: rgba(16, 185, 129, 0.2);
+            color: var(--green);
+        }
+
+        .score-medium {
             background: rgba(245, 158, 11, 0.2);
             color: var(--gold);
         }
 
-        .news-source {
-            font-size: 12px;
-            color: var(--text-muted);
-            padding: 4px 10px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 4px;
-        }
-
-        .breaking-badge {
-            background: var(--red);
-            color: white;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 10px;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            animation: pulse 2s infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.7; }
-        }
-
-        .news-score {
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .score-badge {
-            width: 32px;
-            height: 32px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            border-radius: 8px;
-            font-weight: 700;
-            font-size: 14px;
-        }
-
-        .score-badge.high {
-            background: linear-gradient(135deg, var(--green), var(--cyan));
-            color: white;
-        }
-
-        .score-badge.medium {
-            background: rgba(139, 92, 246, 0.3);
-            color: var(--purple);
-        }
-
-        .score-badge.low {
-            background: rgba(100, 116, 139, 0.3);
-            color: var(--text-muted);
-        }
-
-        .news-title {
-            font-size: 17px;
-            font-weight: 600;
-            line-height: 1.4;
-            color: var(--text-primary);
-            margin-bottom: 10px;
-        }
-
-        .news-summary {
-            font-size: 14px;
+        .score-low {
+            background: rgba(136, 136, 160, 0.2);
             color: var(--text-secondary);
-            line-height: 1.6;
-            margin-bottom: 12px;
         }
 
-        .news-footer {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            flex-wrap: wrap;
-            gap: 10px;
-        }
-
-        .news-time {
-            font-size: 12px;
-            color: var(--text-muted);
-        }
-
-        .news-link {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            font-size: 13px;
-            color: var(--cyan);
-            text-decoration: none;
-            transition: all 0.3s ease;
-        }
-
-        .news-link:hover {
-            color: var(--cyan-light);
-        }
-
-        .news-link svg {
-            width: 14px;
-            height: 14px;
-        }
-
-        .news-card.tradfi .news-link {
-            color: var(--gold);
-        }
-
-        .news-card.tradfi .news-link:hover {
-            color: var(--gold-light);
-        }
-
-        /* Twitter Column */
-        .twitter-column {
-            position: sticky;
-            top: 100px;
-        }
-
+        /* Twitter Section */
         .twitter-section {
             background: var(--bg-card);
-            border: 1px solid var(--border);
             border-radius: 12px;
-            overflow: hidden;
+            border: 1px solid var(--border-color);
+            padding: 24px;
+            height: fit-content;
         }
 
         .twitter-header {
             display: flex;
-            align-items: center;
             justify-content: space-between;
-            padding: 16px 20px;
-            border-bottom: 1px solid var(--border);
-            background: rgba(29, 161, 242, 0.05);
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 1px solid var(--border-color);
         }
 
-        .twitter-header h3 {
+        .twitter-handle {
             display: flex;
             align-items: center;
             gap: 10px;
-            font-family: 'Cinzel', serif;
-            font-size: 16px;
-            color: var(--text-primary);
         }
 
-        .twitter-header svg {
-            width: 20px;
-            height: 20px;
-            fill: var(--twitter-blue);
+        .twitter-handle svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--text-primary);
+        }
+
+        .twitter-handle span {
+            font-weight: 600;
+            font-size: 1.1rem;
         }
 
         .twitter-follow {
-            display: inline-flex;
-            align-items: center;
-            gap: 6px;
-            padding: 6px 14px;
-            background: var(--twitter-blue);
-            color: white;
-            text-decoration: none;
+            padding: 8px 16px;
+            background: var(--text-primary);
+            color: var(--bg-dark);
             border-radius: 20px;
-            font-size: 12px;
+            text-decoration: none;
             font-weight: 600;
-            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            transition: opacity 0.2s;
         }
 
         .twitter-follow:hover {
-            background: #1a91da;
-            transform: scale(1.02);
+            opacity: 0.9;
         }
 
-        .twitter-embed {
-            max-height: 600px;
+        /* Tweet Cards */
+        .tweet-feed {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-height: 650px;
             overflow-y: auto;
         }
 
-        /* Custom scrollbar for twitter embed */
-        .twitter-embed::-webkit-scrollbar {
-            width: 6px;
+        .tweet-card {
+            background: var(--bg-card-hover);
+            border-radius: 8px;
+            padding: 16px;
+            border: 1px solid var(--border-color);
+            transition: all 0.2s;
         }
 
-        .twitter-embed::-webkit-scrollbar-track {
-            background: var(--bg-dark);
+        .tweet-card:hover {
+            border-color: var(--purple);
         }
 
-        .twitter-embed::-webkit-scrollbar-thumb {
-            background: var(--border);
-            border-radius: 3px;
+        .tweet-card.crypto {
+            border-left: 3px solid var(--cyan);
         }
 
-        .twitter-embed::-webkit-scrollbar-thumb:hover {
-            background: var(--text-muted);
+        .tweet-card.tradfi {
+            border-left: 3px solid var(--gold);
+        }
+
+        .tweet-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .tweet-persona {
+            font-size: 0.85rem;
+            font-weight: 600;
+            color: var(--cyan);
+        }
+
+        .tweet-card.tradfi .tweet-persona {
+            color: var(--gold);
+        }
+
+        .tweet-time {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .tweet-content {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+            white-space: pre-wrap;
+            word-break: break-word;
+        }
+
+        .tweet-footer {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px solid var(--border-color);
+        }
+
+        .tweet-tag {
+            font-size: 0.75rem;
+            padding: 3px 8px;
+            border-radius: 4px;
+            background: rgba(139, 92, 246, 0.2);
+            color: var(--purple);
+        }
+
+        .tweet-link {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            transition: color 0.2s;
+        }
+
+        .tweet-link:hover {
+            color: var(--text-primary);
+        }
+
+        .tweet-link svg {
+            width: 14px;
+            height: 14px;
         }
 
         /* Loading State */
         .loading {
-            text-align: center;
-            padding: 60px 20px;
-            color: var(--text-muted);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            color: var(--text-secondary);
         }
 
         .loading-spinner {
             width: 40px;
             height: 40px;
-            border: 3px solid var(--border);
+            border: 3px solid var(--border-color);
             border-top-color: var(--cyan);
             border-radius: 50%;
             animation: spin 1s linear infinite;
-            margin: 0 auto 20px;
+            margin-bottom: 15px;
         }
 
         @keyframes spin {
@@ -563,111 +434,73 @@
         /* Empty State */
         .empty-state {
             text-align: center;
-            padding: 60px 20px;
-        }
-
-        .empty-icon {
-            font-size: 50px;
-            margin-bottom: 15px;
-            opacity: 0.5;
-        }
-
-        .empty-text {
-            color: var(--text-muted);
-            font-size: 16px;
+            padding: 40px;
+            color: var(--text-secondary);
         }
 
         /* Footer */
         footer {
-            padding: 40px 20px;
-            text-align: center;
-            border-top: 1px solid var(--border);
+            padding: 30px 0;
+            border-top: 1px solid var(--border-color);
             margin-top: 60px;
+        }
+
+        .footer-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         .footer-links {
             display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-bottom: 20px;
+            gap: 20px;
         }
 
         .footer-links a {
             color: var(--text-secondary);
             text-decoration: none;
-            font-size: 14px;
-            transition: color 0.3s ease;
+            transition: color 0.2s;
         }
 
         .footer-links a:hover {
-            color: var(--cyan);
+            color: var(--text-primary);
         }
 
         .copyright {
-            color: var(--text-muted);
-            font-size: 12px;
+            color: var(--text-secondary);
+            font-size: 0.9rem;
         }
 
-        /* Mobile */
-        @media (max-width: 768px) {
-            .nav-links {
-                gap: 15px;
-            }
+        /* Scrollbar Styling */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
 
-            .nav-links a {
-                font-size: 12px;
-            }
+        ::-webkit-scrollbar-track {
+            background: var(--bg-card);
+        }
 
-            .realm-tabs {
-                justify-content: center;
-            }
+        ::-webkit-scrollbar-thumb {
+            background: var(--border-color);
+            border-radius: 4px;
+        }
 
-            .realm-tab {
-                padding: 8px 14px;
-                font-size: 11px;
-            }
-
-            .news-title {
-                font-size: 15px;
-            }
-
-            .news-header {
-                flex-direction: column;
-                gap: 10px;
-            }
-
-            .logo-text {
-                display: none;
-            }
-
-            .stats-bar {
-                gap: 20px;
-            }
-
-            .section-header {
-                flex-direction: column;
-                align-items: flex-start;
-                gap: 15px;
-            }
-
-            .twitter-column {
-                position: static;
-            }
+        ::-webkit-scrollbar-thumb:hover {
+            background: var(--text-secondary);
         }
     </style>
 </head>
 <body>
-    <div class="bg-effects"></div>
-
     <header>
         <div class="container">
-            <div class="header-inner">
-                <a href="index.html" class="logo-link">
-                    <img src="images/icon-lion.png" alt="Ascension">
+            <div class="header-content">
+                <a href="index.html" class="logo">
+                    <img src="images/logo.png" alt="Ascension Logo">
                     <span class="logo-text">Ascension</span>
                 </a>
                 <nav class="nav-links">
                     <a href="index.html">Home</a>
+                    <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
                     <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
                 </nav>
@@ -677,43 +510,22 @@
 
     <main>
         <div class="container">
-            <div class="page-header">
-                <h1 class="page-title">⚔ HERALD CRIES ⚔</h1>
-                <p class="page-subtitle">
-                    Real-time market intelligence from the realm. AI-curated news and live commentary.
-                </p>
-            </div>
-
-            <div class="stats-bar" id="stats-bar">
-                <div class="stat-item">
-                    <div class="stat-value" id="stat-crypto">--</div>
-                    <div class="stat-label">Crypto Stories</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value tradfi" id="stat-tradfi">--</div>
-                    <div class="stat-label">TradFi Stories</div>
-                </div>
-                <div class="stat-item">
-                    <div class="stat-value" id="stat-breaking">--</div>
-                    <div class="stat-label">High Priority</div>
-                </div>
+            <div class="page-title">
+                <h1>📜 Herald Cries</h1>
+                <p>Market intelligence from across the realms</p>
             </div>
 
             <div class="content-grid">
-                <!-- News Column -->
-                <div class="news-column">
+                <!-- News Feed -->
+                <div class="news-section">
                     <div class="section-header">
-                        <h2 class="section-title">
-                            <span class="icon">📜</span>
-                            Market Intelligence
-                        </h2>
+                        <h2 class="section-title">📰 Market News</h2>
                         <div class="realm-tabs">
                             <button class="realm-tab active" data-realm="all">All</button>
-                            <button class="realm-tab" data-realm="crypto">🔮 Crypto</button>
-                            <button class="realm-tab tradfi" data-realm="tradfi">🏰 TradFi</button>
+                            <button class="realm-tab" data-realm="crypto">🔮 Cipher</button>
+                            <button class="realm-tab tradfi" data-realm="tradfi">🏰 Sovereign</button>
                         </div>
                     </div>
-
                     <div class="news-feed" id="news-feed">
                         <div class="loading">
                             <div class="loading-spinner"></div>
@@ -722,29 +534,21 @@
                     </div>
                 </div>
 
-                <!-- Twitter Column -->
-                <div class="twitter-column">
-                    <div class="twitter-section">
-                        <div class="twitter-header">
-                            <h3>
-                                <svg viewBox="0 0 24 24">
-                                    <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-                                </svg>
-                                @AscensionFi
-                            </h3>
-                            <a href="https://twitter.com/AscensionFi" target="_blank" class="twitter-follow">
-                                Follow
-                            </a>
+                <!-- Twitter Feed -->
+                <div class="twitter-section">
+                    <div class="twitter-header">
+                        <div class="twitter-handle">
+                            <svg viewBox="0 0 24 24">
+                                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
+                            </svg>
+                            <span>@AscensionFi</span>
                         </div>
-                        <div class="twitter-embed">
-                            <a class="twitter-timeline" 
-                               data-theme="dark" 
-                               data-chrome="noheader nofooter noborders transparent"
-                               data-tweet-limit="10"
-                               href="https://twitter.com/AscensionFi?ref_src=twsrc%5Etfw">
-                                Loading tweets...
-                            </a>
-                            <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+                        <a href="https://twitter.com/AscensionFi" target="_blank" class="twitter-follow">Follow</a>
+                    </div>
+                    <div class="tweet-feed" id="tweet-feed">
+                        <div class="loading">
+                            <div class="loading-spinner"></div>
+                            <p>Loading tweets...</p>
                         </div>
                     </div>
                 </div>
@@ -754,163 +558,181 @@
 
     <footer>
         <div class="container">
-            <div class="footer-links">
-                <a href="index.html">Home</a>
-                <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="index.html">Home</a>
+                    <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                    <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
+                </div>
+                <p class="copyright">© 2025 Ascension. All rights reserved.</p>
             </div>
-            <p class="copyright">
-                © 2025 Ascension. All rights reserved.
-            </p>
         </div>
     </footer>
 
     <script>
         const API_BASE = 'https://tps3qkvor3.execute-api.us-east-1.amazonaws.com/prod';
         let currentRealm = 'all';
-        let allNews = [];
 
-        // Format time ago
-        function formatTimeAgo(date) {
-            if (!date) return '';
-            const seconds = Math.floor((new Date() - new Date(date)) / 1000);
+        // =====================
+        // TIME FORMATTING
+        // =====================
+        function formatTimeAgo(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            const now = new Date();
+            const seconds = Math.floor((now - date) / 1000);
+            
             if (seconds < 60) return 'Just now';
             const minutes = Math.floor(seconds / 60);
             if (minutes < 60) return `${minutes}m ago`;
             const hours = Math.floor(minutes / 60);
             if (hours < 24) return `${hours}h ago`;
             const days = Math.floor(hours / 24);
-            return `${days}d ago`;
+            if (days < 7) return `${days}d ago`;
+            return date.toLocaleDateString();
         }
 
-        // Get score class
+        // =====================
+        // NEWS FEED
+        // =====================
         function getScoreClass(score) {
-            if (score >= 7) return 'high';
-            if (score >= 5) return 'medium';
-            return 'low';
+            if (score >= 7) return 'score-high';
+            if (score >= 5) return 'score-medium';
+            return 'score-low';
         }
 
-        // Truncate text
-        function truncate(text, length) {
-            if (!text) return '';
-            return text.length > length ? text.substring(0, length) + '...' : text;
-        }
-
-        // Update stats
-        function updateStats() {
-            const cryptoCount = allNews.filter(n => n.realm === 'crypto').length;
-            const tradfiCount = allNews.filter(n => n.realm === 'tradfi').length;
-            const breakingCount = allNews.filter(n => n.score >= 7).length;
-
-            document.getElementById('stat-crypto').textContent = cryptoCount;
-            document.getElementById('stat-tradfi').textContent = tradfiCount;
-            document.getElementById('stat-breaking').textContent = breakingCount;
-        }
-
-        // Render news
-        function renderNews(news) {
-            const feed = document.getElementById('news-feed');
+        function renderNewsCard(item) {
+            const realmClass = item.realm === 'tradfi' ? 'tradfi' : 'crypto';
+            const scoreClass = getScoreClass(item.score || 0);
             
-            // Filter by realm
-            let filtered = news;
-            if (currentRealm !== 'all') {
-                filtered = news.filter(item => item.realm === currentRealm);
-            }
-
-            if (filtered.length === 0) {
-                feed.innerHTML = `
-                    <div class="empty-state">
-                        <div class="empty-icon">📜</div>
-                        <p class="empty-text">No herald cries at this time. The realm is quiet.</p>
+            return `
+                <div class="news-card ${realmClass}" onclick="window.open('${item.link}', '_blank')">
+                    <div class="news-meta">
+                        <span class="news-source">${item.source || 'News'}</span>
+                        <span class="news-time">${formatTimeAgo(item.published)}</span>
                     </div>
-                `;
-                return;
-            }
+                    <div class="news-title">${item.title || ''}</div>
+                    ${item.score ? `<span class="news-score ${scoreClass}">Score: ${item.score}</span>` : ''}
+                </div>
+            `;
+        }
 
-            feed.innerHTML = filtered.map(item => {
-                const hasUrl = item.url && item.url.length > 0;
-                const cardTag = hasUrl ? 'a' : 'div';
-                const urlAttr = hasUrl ? `href="${item.url}" target="_blank"` : '';
+        async function loadNews() {
+            const feedEl = document.getElementById('news-feed');
+            
+            try {
+                const realmParam = currentRealm !== 'all' ? `?realm=${currentRealm}` : '';
+                const response = await fetch(`${API_BASE}/api/news${realmParam}`);
+                const data = await response.json();
                 
-                return `
-                <${cardTag} class="news-card ${item.realm} ${item.is_breaking ? 'breaking' : ''}" ${urlAttr}>
-                    <div class="news-header">
-                        <div class="news-meta">
-                            <span class="news-realm ${item.realm}">
-                                ${item.realm === 'crypto' ? '🔮' : '🏰'} ${item.realm}
-                            </span>
-                            ${item.source ? `<span class="news-source">${item.source}</span>` : ''}
-                            ${item.is_breaking ? '<span class="breaking-badge">⚡ Breaking</span>' : ''}
-                        </div>
-                        <div class="news-score">
-                            <span class="score-badge ${getScoreClass(item.score)}">${item.score}</span>
-                        </div>
+                if (data.items && data.items.length > 0) {
+                    feedEl.innerHTML = data.items.map(renderNewsCard).join('');
+                } else {
+                    feedEl.innerHTML = '<div class="empty-state">No news available</div>';
+                }
+            } catch (error) {
+                console.error('Failed to load news:', error);
+                feedEl.innerHTML = '<div class="empty-state">Failed to load news</div>';
+            }
+        }
+
+        // =====================
+        // TWEET FEED
+        // =====================
+        function renderTweetCard(tweet) {
+            const realmClass = tweet.realm === 'tradfi' ? 'tradfi' : 'crypto';
+            const persona = tweet.herald_tag || tweet.persona || 'Herald';
+            
+            // Clean up content - remove any raw JSON artifacts
+            let content = tweet.content || '';
+            
+            return `
+                <div class="tweet-card ${realmClass}">
+                    <div class="tweet-header">
+                        <span class="tweet-persona">${persona}</span>
+                        <span class="tweet-time">${formatTimeAgo(tweet.posted_at)}</span>
                     </div>
-                    
-                    <h2 class="news-title">${item.title}</h2>
-                    
-                    ${item.summary ? `<p class="news-summary">${truncate(item.summary, 180)}</p>` : ''}
-                    
-                    <div class="news-footer">
-                        <span class="news-time">${formatTimeAgo(item.timestamp)}</span>
-                        ${hasUrl ? `
-                            <span class="news-link">
-                                Read Source
+                    <div class="tweet-content">${escapeHtml(content)}</div>
+                    <div class="tweet-footer">
+                        <span class="tweet-tag">${tweet.realm === 'tradfi' ? '🏰 Sovereign' : '🔮 Cipher'}</span>
+                        ${tweet.twitter_url ? `
+                            <a href="${tweet.twitter_url}" target="_blank" class="tweet-link">
+                                View on X
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
                                     <polyline points="15 3 21 3 21 9"/>
                                     <line x1="10" y1="14" x2="21" y2="3"/>
                                 </svg>
-                            </span>
+                            </a>
                         ` : ''}
                     </div>
-                </${cardTag}>
-            `}).join('');
-        }
-
-        // Fetch news from API
-        async function fetchNews() {
-            try {
-                const response = await fetch(`${API_BASE}/api/news`);
-                
-                if (response.ok) {
-                    allNews = await response.json();
-                    updateStats();
-                    renderNews(allNews);
-                } else {
-                    console.error('API returned error:', response.status);
-                    showError();
-                }
-            } catch (err) {
-                console.error('Failed to fetch news:', err);
-                showError();
-            }
-        }
-
-        function showError() {
-            document.getElementById('news-feed').innerHTML = `
-                <div class="empty-state">
-                    <div class="empty-icon">⚠️</div>
-                    <p class="empty-text">Unable to reach the realm. Please try again later.</p>
                 </div>
             `;
         }
 
-        // Tab switching
+        function escapeHtml(text) {
+            const div = document.createElement('div');
+            div.textContent = text;
+            return div.innerHTML;
+        }
+
+        async function loadTweets() {
+            const feedEl = document.getElementById('tweet-feed');
+            
+            try {
+                const response = await fetch(`${API_BASE}/api/tweets?limit=15`);
+                const data = await response.json();
+                
+                if (data.tweets && data.tweets.length > 0) {
+                    feedEl.innerHTML = data.tweets.map(renderTweetCard).join('');
+                } else {
+                    // Fallback: link to Twitter
+                    feedEl.innerHTML = `
+                        <div class="empty-state">
+                            <p>No recent tweets available</p>
+                            <a href="https://twitter.com/AscensionFi" target="_blank" style="color: var(--cyan); margin-top: 10px; display: inline-block;">
+                                View @AscensionFi on X →
+                            </a>
+                        </div>
+                    `;
+                }
+            } catch (error) {
+                console.error('Failed to load tweets:', error);
+                // Fallback on error
+                feedEl.innerHTML = `
+                    <div class="empty-state">
+                        <p>Unable to load tweets</p>
+                        <a href="https://twitter.com/AscensionFi" target="_blank" style="color: var(--cyan); margin-top: 10px; display: inline-block;">
+                            View @AscensionFi on X →
+                        </a>
+                    </div>
+                `;
+            }
+        }
+
+        // =====================
+        // EVENT HANDLERS
+        // =====================
         document.querySelectorAll('.realm-tab').forEach(tab => {
             tab.addEventListener('click', () => {
                 document.querySelectorAll('.realm-tab').forEach(t => t.classList.remove('active'));
                 tab.classList.add('active');
                 currentRealm = tab.dataset.realm;
-                renderNews(allNews);
+                loadNews();
             });
         });
 
-        // Initial load
-        fetchNews();
-
-        // Refresh every 2 minutes
-        setInterval(fetchNews, 120000);
+        // =====================
+        // INIT
+        // =====================
+        document.addEventListener('DOMContentLoaded', () => {
+            loadNews();
+            loadTweets();
+            
+            // Refresh periodically
+            setInterval(loadNews, 60000);  // News every minute
+            setInterval(loadTweets, 120000); // Tweets every 2 minutes
+        });
     </script>
 </body>
 </html>
