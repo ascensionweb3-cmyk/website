@@ -606,10 +606,10 @@
             const scoreClass = getScoreClass(item.score || 0);
             
             return `
-                <div class="news-card ${realmClass}" onclick="window.open('${item.link}', '_blank')">
+                <div class="news-card ${realmClass}" onclick="window.open('${item.url}', '_blank')">
                     <div class="news-meta">
                         <span class="news-source">${item.source || 'News'}</span>
-                        <span class="news-time">${formatTimeAgo(item.published)}</span>
+                        <span class="news-time">${formatTimeAgo(item.timestamp || item.published_at)}</span>
                     </div>
                     <div class="news-title">${item.title || ''}</div>
                     ${item.score ? `<span class="news-score ${scoreClass}">Score: ${item.score}</span>` : ''}
@@ -625,8 +625,15 @@
                 const response = await fetch(`${API_BASE}/api/news${realmParam}`);
                 const data = await response.json();
                 
-                if (data.items && data.items.length > 0) {
-                    feedEl.innerHTML = data.items.map(renderNewsCard).join('');
+                // API returns array directly, filter by realm if needed
+                let items = Array.isArray(data) ? data : (data.items || []);
+                
+                if (currentRealm !== 'all') {
+                    items = items.filter(item => item.realm === currentRealm);
+                }
+                
+                if (items.length > 0) {
+                    feedEl.innerHTML = items.map(renderNewsCard).join('');
                 } else {
                     feedEl.innerHTML = '<div class="empty-state">No news available</div>';
                 }
