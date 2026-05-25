@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Herald Cries | Ascension</title>
-    <link rel="icon" type="image/png" href="images/favicon.png">
+    <link rel="icon" type="image/png" href="/images/favicon.png">
     <style>
         * {
             margin: 0;
@@ -27,6 +27,7 @@
         }
 
         body {
+            margin-top: 46px;
             font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
             background: var(--bg-dark);
             color: var(--text-primary);
@@ -45,7 +46,7 @@
             border-bottom: 1px solid var(--border-color);
             background: rgba(10, 10, 15, 0.95);
             position: sticky;
-            top: 0;
+            top: 46px;
             z-index: 100;
             backdrop-filter: blur(10px);
         }
@@ -67,6 +68,10 @@
         .logo img {
             width: 40px;
             height: 40px;
+            filter: none !important;
+            -webkit-filter: none !important;
+            isolation: isolate;
+            mix-blend-mode: normal;
         }
 
         .logo-text {
@@ -120,7 +125,7 @@
         /* Two Column Layout */
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 380px;
+            grid-template-columns: 1fr 320px;
             gap: 30px;
         }
 
@@ -128,6 +133,111 @@
             .content-grid {
                 grid-template-columns: 1fr;
             }
+            .market-sidebar {
+                order: -1;
+            }
+        }
+
+
+        /* Market Sidebar */
+        .market-sidebar {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+        }
+
+        .sidebar-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 16px;
+        }
+
+        .sidebar-card-title {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-secondary);
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        .sidebar-fng {
+            text-align: center;
+        }
+
+        .sidebar-fng-value {
+            font-size: 42px;
+            font-weight: 700;
+            line-height: 1;
+            margin: 6px 0;
+        }
+
+        .sidebar-fng-label {
+            font-size: 14px;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        .sidebar-fng-bar {
+            width: 100%;
+            height: 6px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+            border-radius: 3px;
+            margin-top: 10px;
+            position: relative;
+        }
+
+        .sidebar-fng-dot {
+            position: absolute;
+            top: -4px;
+            width: 14px;
+            height: 14px;
+            background: white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 8px rgba(255,255,255,0.4);
+        }
+
+        .sidebar-stat {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+        }
+
+        .sidebar-stat:last-child { border-bottom: none; }
+
+        .sidebar-stat-label {
+            font-size: 12px;
+            color: var(--text-secondary);
+        }
+
+        .sidebar-stat-value {
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .sidebar-link {
+            display: block;
+            padding: 8px 0;
+            color: var(--text-secondary);
+            text-decoration: none;
+            font-size: 13px;
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            transition: color 0.2s;
+        }
+
+        .sidebar-link:hover { color: var(--cyan); }
+        .sidebar-link:last-child { border-bottom: none; }
+
+        .sidebar-link .link-source {
+            font-size: 10px;
+            color: var(--text-muted);
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
 
         /* News Section */
@@ -268,7 +378,7 @@
             border-radius: 12px;
             border: 1px solid var(--border-color);
             padding: 24px;
-            height: fit-content;
+            min-height: 400px;
         }
 
         .twitter-header {
@@ -488,19 +598,59 @@
         ::-webkit-scrollbar-thumb:hover {
             background: var(--text-secondary);
         }
+
+        /* Ticker Tape */
+        .ticker-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: rgba(10, 10, 15, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
     </style>
 </head>
 <body>
+    <!-- TradingView Ticker Tape -->
+    <div class="ticker-container">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+                "symbols": [
+                    {"proName": "BITSTAMP:BTCUSD", "title": "BTC"},
+                    {"proName": "BITSTAMP:ETHUSD", "title": "ETH"},
+                    {"proName": "COINBASE:SOLUSD", "title": "SOL"},
+                    {"proName": "BINANCE:DOGEUSDT", "title": "DOGE"},
+                    {"proName": "FOREXCOM:SPXUSD", "title": "S&P 500"},
+                    {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq"},
+                    {"proName": "AMEX:SPY", "title": "SPY"},
+                    {"proName": "NASDAQ:NVDA", "title": "NVDA"},
+                    {"proName": "NASDAQ:TSLA", "title": "TSLA"},
+                    {"proName": "FX_IDC:USDJPY", "title": "USD/JPY"}
+                ],
+                "showSymbolLogo": true,
+                "isTransparent": true,
+                "displayMode": "adaptive",
+                "colorTheme": "dark",
+                "locale": "en"
+            }
+            </script>
+        </div>
+    </div>
+
+
     <header>
         <div class="container">
             <div class="header-content">
-                <a href="index.html" class="logo">
-                    <img src="images/logo.png" alt="Ascension Logo">
+                <a href="/" class="logo">
+                    <img src="/images/logo.png" alt="Ascension Logo">
                     <span class="logo-text">Ascension</span>
                 </a>
                 <nav class="nav-links">
-                    <a href="index.html">Home</a>
-                    <a href="https://lab.ascensionrealm.com" target="_blank" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
+                    <a href="/">Home</a>
+                    <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
                     <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
                     <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
@@ -512,7 +662,7 @@
     <main>
         <div class="container">
             <div class="page-title">
-                <h1>📜 Herald Cries</h1>
+                <h1 style="font-family:'Cinzel',serif;">Herald Cries</h1>
                 <p>Market intelligence from across the realms</p>
             </div>
 
@@ -536,7 +686,7 @@
                 </div>
 
                 <!-- Twitter Feed -->
-                <div class="twitter-section">
+                <div class="twitter-section" style="display:none;">
                     <div class="twitter-header">
                         <div class="twitter-handle">
                             <svg viewBox="0 0 24 24">
@@ -553,6 +703,84 @@
                         </div>
                     </div>
                 </div>
+
+                <!-- Market Sidebar -->
+                <div class="market-sidebar">
+                    <!-- Fear & Greed -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-card-title">Fear & Greed</div>
+                        <div class="sidebar-fng">
+                            <div class="sidebar-fng-label" id="h-fng-label">Loading...</div>
+                            <div class="sidebar-fng-value" id="h-fng-value">--</div>
+                            <div class="sidebar-fng-bar">
+                                <div class="sidebar-fng-dot" id="h-fng-dot" style="left:50%;"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Market Stats -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-card-title">Market Overview</div>
+                        <div class="sidebar-stat">
+                            <span class="sidebar-stat-label">BTC Dominance</span>
+                            <span class="sidebar-stat-value" id="h-btc-dom">--</span>
+                        </div>
+                        <div class="sidebar-stat">
+                            <span class="sidebar-stat-label">Global Market Cap</span>
+                            <span class="sidebar-stat-value" id="h-global-mcap">--</span>
+                        </div>
+                        <div class="sidebar-stat">
+                            <span class="sidebar-stat-label">24h Change</span>
+                            <span class="sidebar-stat-value" id="h-mcap-change">--</span>
+                        </div>
+                        <div class="sidebar-stat">
+                            <span class="sidebar-stat-label">Season</span>
+                            <span class="sidebar-stat-value" id="h-season">--</span>
+                        </div>
+                    </div>
+
+                    <!-- Quick Links -->
+                    <div class="sidebar-card">
+                        <div class="sidebar-card-title">Market News</div>
+                        <a class="sidebar-link" href="https://www.coindesk.com/" target="_blank">
+                            CoinDesk<br><span class="link-source">Crypto News</span>
+                        </a>
+                        <a class="sidebar-link" href="https://www.theblock.co/" target="_blank">
+                            The Block<br><span class="link-source">Crypto Research</span>
+                        </a>
+                        <a class="sidebar-link" href="https://decrypt.co/" target="_blank">
+                            Decrypt<br><span class="link-source">Web3 News</span>
+                        </a>
+                        <a class="sidebar-link" href="https://www.bloomberg.com/markets" target="_blank">
+                            Bloomberg Markets<br><span class="link-source">TradFi</span>
+                        </a>
+                        <a class="sidebar-link" href="https://www.cnbc.com/markets/" target="_blank">
+                            CNBC Markets<br><span class="link-source">TradFi</span>
+                        </a>
+                        <a class="sidebar-link" href="https://finviz.com/" target="_blank">
+                            FinViz<br><span class="link-source">Screener & Heatmap</span>
+                        </a>
+                    </div>
+
+                    <!-- TradingView Mini Chart -->
+                    <div class="sidebar-card" style="padding:0;overflow:hidden;">
+                        <div class="tradingview-widget-container">
+                            <div class="tradingview-widget-container__widget"></div>
+                            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                            {
+                                "symbol": "BITSTAMP:BTCUSD",
+                                "width": "100%",
+                                "height": 200,
+                                "locale": "en",
+                                "dateRange": "1D",
+                                "colorTheme": "dark",
+                                "isTransparent": true,
+                                "autosize": false
+                            }
+                            </script>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </main>
@@ -561,12 +789,10 @@
         <div class="container">
             <div class="footer-content">
                 <div class="footer-links">
-                    <a href="index.html">Home</a>
-                    <a href="https://lab.ascensionrealm.com" target="_blank">Strategy Lab</a>
+                    <a href="/">Home</a>
+                    <a href="/lab">Strategy Lab</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
                     <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
-                    <a href="https://ascensionrealm.com/privacy">Privacy Policy</a>
-                    <a href="https://ascensionrealm.com/terms">Terms of Service</a>
                 </div>
                 <p class="copyright">© 2026 Ascension. All rights reserved.</p>
             </div>
@@ -667,7 +893,7 @@
                     <div class="tweet-footer">
                         <span class="tweet-tag">${tweet.realm === 'tradfi' ? '🏰 Sovereign' : '🔮 Cipher'}</span>
                         ${tweet.twitter_url ? `
-                            <a href="${tweet.twitter_url}" target="_blank" class="tweet-link">
+                            <a href="https://ascensionrealm.com/${tweet.twitter_url}" target="_blank" class="tweet-link">
                                 View on X
                                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                                     <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/>
@@ -744,6 +970,51 @@
             setInterval(loadNews, 60000);  // News every minute
             setInterval(loadTweets, 120000); // Tweets every 2 minutes
         });
-    </script>
+    
+    // Herald sidebar data
+    async function loadHeraldSidebar() {
+        // Fear & Greed
+        try {
+            var resp = await fetch('https://api.alternative.me/fng/?limit=1');
+            var data = await resp.json();
+            var fng = data.data[0];
+            var value = parseInt(fng.value);
+            document.getElementById('h-fng-value').textContent = value;
+            document.getElementById('h-fng-label').textContent = fng.value_classification;
+            document.getElementById('h-fng-dot').style.left = value + '%';
+            var el = document.getElementById('h-fng-value');
+            if (value <= 25) el.style.color = '#ef4444';
+            else if (value <= 45) el.style.color = '#f59e0b';
+            else if (value <= 55) el.style.color = '#94a3b8';
+            else if (value <= 75) el.style.color = '#22c55e';
+            else el.style.color = '#10b981';
+        } catch(e) {}
+
+        // CoinGecko global
+        try {
+            var resp = await fetch('https://api.coingecko.com/api/v3/global');
+            var data = await resp.json();
+            var g = data.data;
+            var btcDom = g.market_cap_percentage.btc;
+            document.getElementById('h-btc-dom').textContent = btcDom.toFixed(1) + '%';
+            document.getElementById('h-btc-dom').style.color = btcDom > 55 ? '#f59e0b' : '#06b6d4';
+
+            var mcap = g.total_market_cap.usd;
+            document.getElementById('h-global-mcap').textContent = '$' + (mcap / 1e12).toFixed(2) + 'T';
+
+            var change = g.market_cap_change_percentage_24h_usd;
+            var changeEl = document.getElementById('h-mcap-change');
+            changeEl.textContent = (change >= 0 ? '+' : '') + change.toFixed(2) + '%';
+            changeEl.style.color = change >= 0 ? '#10b981' : '#ef4444';
+
+            var seasonEl = document.getElementById('h-season');
+            if (btcDom > 60) { seasonEl.textContent = 'BTC'; seasonEl.style.color = '#f59e0b'; }
+            else if (btcDom < 45) { seasonEl.textContent = 'ALT'; seasonEl.style.color = '#06b6d4'; }
+            else { seasonEl.textContent = 'Neutral'; seasonEl.style.color = '#94a3b8'; }
+        } catch(e) {}
+    }
+    loadHeraldSidebar();
+    setInterval(loadHeraldSidebar, 300000);
+</script>
 </body>
 </html>

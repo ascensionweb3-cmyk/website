@@ -450,9 +450,269 @@
                 font-size: 12px;
             }
         }
+
+        /* Ticker Tape */
+        .ticker-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 200;
+            background: rgba(10, 10, 15, 0.95);
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+
+        header {
+            top: 46px !important;
+        }
+
+        .hero {
+            padding-top: 160px !important;
+        }
+
+        /* Market Sections */
+        .section {
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-family: 'Cinzel', serif;
+            font-size: 28px;
+            font-weight: 600;
+            letter-spacing: 4px;
+            margin-bottom: 8px;
+        }
+
+        .section-subtitle {
+            color: var(--text-secondary);
+            font-size: 16px;
+            letter-spacing: 2px;
+        }
+
+        .section-divider {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, var(--gold), var(--cyan));
+            margin: 16px auto 0;
+        }
+
+        /* Market Grid */
+        .market-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .market-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            overflow: hidden;
+            transition: border-color 0.3s;
+        }
+
+        .market-card:hover {
+            border-color: rgba(6, 182, 212, 0.2);
+        }
+
+        /* Fear & Greed */
+        .fng-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            max-width: 400px;
+            margin: 0 auto;
+        }
+
+        .fng-value {
+            font-family: 'Cinzel', serif;
+            font-size: 64px;
+            font-weight: 700;
+            line-height: 1;
+            margin: 10px 0;
+        }
+
+        .fng-label {
+            font-size: 18px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .fng-bar {
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(90deg, #ef4444, #f59e0b, #22c55e);
+            border-radius: 4px;
+            margin-top: 16px;
+            position: relative;
+        }
+
+        .fng-indicator {
+            position: absolute;
+            top: -4px;
+            width: 16px;
+            height: 16px;
+            background: white;
+            border-radius: 50%;
+            transform: translateX(-50%);
+            box-shadow: 0 0 10px rgba(255,255,255,0.5);
+            transition: left 0.5s ease;
+        }
+
+        /* Bot Fleet */
+        .fleet-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .fleet-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .fleet-name {
+            font-family: 'Cinzel', serif;
+            font-size: 14px;
+            letter-spacing: 2px;
+            margin-bottom: 4px;
+        }
+
+        .fleet-realm {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            margin-bottom: 12px;
+        }
+
+        .fleet-realm.cipher { color: var(--cyan); }
+        .fleet-realm.sovereign { color: var(--gold); }
+
+        .fleet-equity {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 4px;
+        }
+
+        .fleet-status {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .fleet-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: #22c55e;
+            box-shadow: 0 0 6px rgba(34, 197, 94, 0.5);
+        }
+
+        .fleet-total {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .fleet-total-value {
+            font-family: 'Cinzel', serif;
+            font-size: 36px;
+            font-weight: 600;
+            background: linear-gradient(135deg, var(--gold), var(--cyan));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .fleet-total-label {
+            color: var(--text-muted);
+            font-size: 13px;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        /* StockTwits */
+        .social-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        
+        .social-card { position: relative; }
+        .social-card * { scrollbar-width: none; -ms-overflow-style: none; }
+        .social-card iframe { overflow: hidden !important; scrollbar-width: none; border: none !important; }
+        .social-card .stocktwits-widget { overflow: hidden; }
+        .social-card::after { content:''; position:absolute; top:0; right:0; width:12px; height:100%; background:var(--bg-card); z-index:10; pointer-events:none; }
+        .social-card *::-webkit-scrollbar { display: none; }
+        .social-card iframe { overflow: hidden !important; }
+
+        .social-card {
+            background: var(--bg-card);
+            border: 1px solid rgba(255,255,255,0.06);
+            border-radius: 12px;
+            overflow: hidden;
+            min-height: 180px;
+        }
+
+        @media (max-width: 768px) {
+            .market-grid { grid-template-columns: 1fr; }
+            .fleet-grid { grid-template-columns: 1fr 1fr; }
+            .fng-value { font-size: 48px; }
+        }
+        .beta-banner { background: linear-gradient(90deg, rgba(6,182,212,0.15), rgba(168,85,247,0.15)); border: 1px solid rgba(6,182,212,0.3); border-radius: 8px; padding: 10px 20px; text-align: center; font-family: Rajdhani, sans-serif; font-size: 0.85rem; color: rgba(255,255,255,0.7); letter-spacing: 0.5px; margin-bottom: 16px; }
+    .beta-banner strong { color: #06b6d4; }
     </style>
 </head>
 <body>
+    <!-- TradingView Ticker Tape -->
+    <div class="ticker-container">
+        <div class="tradingview-widget-container">
+            <div class="tradingview-widget-container__widget"></div>
+            <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-ticker-tape.js" async>
+            {
+                "symbols": [
+                    {"proName": "BITSTAMP:BTCUSD", "title": "BTC"},
+                    {"proName": "BITSTAMP:ETHUSD", "title": "ETH"},
+                    {"proName": "COINBASE:SOLUSD", "title": "SOL"},
+                    {"proName": "BINANCE:DOGEUSDT", "title": "DOGE"},
+                    {"proName": "FOREXCOM:SPXUSD", "title": "S&P 500"},
+                    {"proName": "FOREXCOM:NSXUSD", "title": "Nasdaq"},
+                    {"proName": "AMEX:SPY", "title": "SPY"},
+                    {"proName": "NASDAQ:NVDA", "title": "NVDA"},
+                    {"proName": "NASDAQ:TSLA", "title": "TSLA"},
+                    {"proName": "FX_IDC:USDJPY", "title": "USD/JPY"}
+                ],
+                "showSymbolLogo": true,
+                "isTransparent": true,
+                "displayMode": "adaptive",
+                "colorTheme": "dark",
+                "locale": "en"
+            }
+            </script>
+        </div>
+    </div>
+
     <div class="bg-effects"></div>
     <div class="grid-overlay"></div>
 
@@ -461,16 +721,19 @@
             <div class="header-inner">
                 <div></div>
                 <nav class="nav-links">
-                    <a href="herald.html">Herald Cries</a>
-                    <a href="https://lab.ascensionrealm.com" target="_blank" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
+                    <a href="/herald">Herald Cries</a>
+                    <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                    <a href="https://herald.ascensionrealm.com" target="_blank" class="team-login">Team Login</a>
+                    <a href="/lab" class="team-login">Team Login</a>
                 </nav>
             </div>
         </div>
     </header>
 
     <main>
+    <div class="container">
+      <div class="beta-banner"><strong>BETA COMING SOON</strong> — Currently paper trading only. No real money is used. All equity shown represents simulated paper accounts.</div>
+    </div>
         <section class="hero">
             <div class="container">
                 <div class="logo-container">
@@ -515,6 +778,7 @@
                             <path d="M20.317 4.37a19.791 19.791 0 0 0-4.885-1.515.074.074 0 0 0-.079.037c-.21.375-.444.864-.608 1.25a18.27 18.27 0 0 0-5.487 0 12.64 12.64 0 0 0-.617-1.25.077.077 0 0 0-.079-.037A19.736 19.736 0 0 0 3.677 4.37a.07.07 0 0 0-.032.027C.533 9.046-.32 13.58.099 18.057a.082.082 0 0 0 .031.057 19.9 19.9 0 0 0 5.993 3.03.078.078 0 0 0 .084-.028 14.09 14.09 0 0 0 1.226-1.994.076.076 0 0 0-.041-.106 13.107 13.107 0 0 1-1.872-.892.077.077 0 0 1-.008-.128 10.2 10.2 0 0 0 .372-.292.074.074 0 0 1 .077-.01c3.928 1.793 8.18 1.793 12.062 0a.074.074 0 0 1 .078.01c.12.098.246.198.373.292a.077.077 0 0 1-.006.127 12.299 12.299 0 0 1-1.873.892.077.077 0 0 0-.041.107c.36.698.772 1.362 1.225 1.993a.076.076 0 0 0 .084.028 19.839 19.839 0 0 0 6.002-3.03.077.077 0 0 0 .032-.054c.5-5.177-.838-9.674-3.549-13.66a.061.061 0 0 0-.031-.03zM8.02 15.33c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.956-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.956 2.418-2.157 2.418zm7.975 0c-1.183 0-2.157-1.085-2.157-2.419 0-1.333.955-2.419 2.157-2.419 1.21 0 2.176 1.096 2.157 2.42 0 1.333-.946 2.418-2.157 2.418z"/>
                         </svg>
                         Join Discord
+                    </a>
                     <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank" class="btn btn-secondary">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
@@ -522,7 +786,7 @@
                         </svg>
                         Whitepaper
                     </a>
-                    <a href="https://lab.ascensionrealm.com" target="_blank" class="btn btn-ghost">
+                    <a href="/lab" class="btn btn-ghost">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 3h6l2 4H7L9 3z"/>
                             <path d="M7 7v10a2 2 0 002 2h6a2 2 0 002-2V7"/>
@@ -543,15 +807,401 @@
         </section>
     </main>
 
+
+    <!-- Market Overview -->
+    <section class="section" id="markets">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">MARKET PULSE</div>
+                <div class="section-subtitle">Real-Time Market Intelligence</div>
+                <div class="section-divider"></div>
+            </div>
+
+            <div class="market-grid" style="grid-template-columns:repeat(auto-fit,minmax(260px,1fr));">
+                <!-- Bitcoin -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "BITSTAMP:BTCUSD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Ethereum -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "BITSTAMP:ETHUSD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Solana -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "COINBASE:SOLUSD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Dogecoin -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "BINANCE:DOGEUSDT",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- S&P 500 ETF -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "AMEX:SPY",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Nasdaq 100 ETF -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "NASDAQ:QQQ",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- NVIDIA -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "NASDAQ:NVDA",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <!-- Tesla -->
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "NASDAQ:TSLA",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "AMEX:DIA",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "AMEX:IWM",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "FOREXCOM:SPXUSD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+                <div class="market-card">
+                    <div class="tradingview-widget-container" style="height:200px;">
+                        <div class="tradingview-widget-container__widget"></div>
+                        <script type="text/javascript" src="https://s3.tradingview.com/external-embedding/embed-widget-mini-symbol-overview.js" async>
+                        {
+                            "symbol": "AMEX:GLD",
+                            "width": "100%",
+                            "height": "100%",
+                            "locale": "en",
+                            "dateRange": "1D",
+                            "colorTheme": "dark",
+                            "isTransparent": true,
+                            "autosize": false,
+                            "largeChartUrl": ""
+                        }
+                        </script>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Fear & Greed Index -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">MARKET SENTIMENT</div>
+                <div class="section-subtitle">Fear, Greed & Market Structure</div>
+                <div class="section-divider"></div>
+            </div>
+
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;max-width:1000px;margin:0 auto;">
+
+            <!-- Fear & Greed -->
+            <div class="fng-card" id="fng-card" style="max-width:none;">
+                <div class="fng-label" id="fng-label">Loading...</div>
+                <div class="fng-value" id="fng-value">--</div>
+                <div style="color: var(--text-muted); font-size: 13px;">out of 100</div>
+                <div class="fng-bar">
+                    <div class="fng-indicator" id="fng-indicator" style="left: 50%;"></div>
+                </div>
+                <div style="display:flex; justify-content:space-between; margin-top:8px; font-size:11px; color:var(--text-muted);">
+                    <span>Extreme Fear</span>
+                    <span>Neutral</span>
+                    <span>Extreme Greed</span>
+                </div>
+            </div>
+
+            <!-- BTC Dominance + Alt Season -->
+            <div class="fng-card" style="max-width:none;">
+                <div class="fng-label">BTC Dominance</div>
+                <div class="fng-value" id="btc-dom-value" style="font-size:48px;">--</div>
+                <div style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">of total crypto market cap</div>
+
+                <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
+                    <div class="fng-label" id="season-label">Loading...</div>
+                    <div id="season-value" style="font-size:28px;font-family:'Cinzel',serif;font-weight:600;margin:6px 0;">--</div>
+                    <div class="fng-bar">
+                        <div class="fng-indicator" id="season-indicator" style="left:50%;"></div>
+                    </div>
+                    <div style="display:flex;justify-content:space-between;margin-top:8px;font-size:11px;color:var(--text-muted);">
+                        <span>Alt Season</span>
+                        <span>Neutral</span>
+                        <span>BTC Season</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Market Direction -->
+            <div class="fng-card" style="max-width:none;">
+                <div class="fng-label">24h Market Direction</div>
+                <div class="fng-value" id="market-dir-value" style="font-size:48px;">--</div>
+                <div id="market-dir-label" style="color:var(--text-muted);font-size:13px;margin-bottom:16px;">Loading...</div>
+
+                <div style="border-top:1px solid rgba(255,255,255,0.06);padding-top:16px;">
+                    <div class="fng-label">Global Crypto Market Cap</div>
+                    <div id="global-mcap" style="font-size:24px;font-family:'Cinzel',serif;font-weight:600;margin:6px 0;">--</div>
+                    <div id="global-mcap-change" style="font-size:14px;color:var(--text-muted);">--</div>
+                </div>
+            </div>
+
+            </div>
+        </div>
+    </section>
+
+    
+
+    <!-- TradingView Advanced Chart -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">CHART</div>
+                <div class="section-subtitle">Interactive Market Analysis</div>
+                <div class="section-divider"></div>
+            </div>
+            <div class="market-card" style="max-width:1200px;margin:0 auto;">
+                <div class="tradingview-widget-container" style="height:700px;">
+                    <div id="tradingview-chart" style="height:700px;"></div>
+                    <script type="text/javascript" src="https://s3.tradingview.com/tv.js"></script>
+                    <script type="text/javascript">
+                        new TradingView.widget({
+                            "container_id": "tradingview-chart",
+                            "autosize": false,
+                            "symbol": "BITSTAMP:BTCUSD",
+                            "interval": "60",
+                            "timezone": "America/New_York",
+                            "theme": "dark",
+                            "style": "1",
+                            "locale": "en",
+                            "toolbar_bg": "#0a0a0f",
+                            "enable_publishing": false,
+                            "hide_side_toolbar": false,
+                            "allow_symbol_change": true,
+                            "watchlist": [
+                                "BITSTAMP:BTCUSD","BITSTAMP:ETHUSD","COINBASE:SOLUSD",
+                                "BINANCE:DOGEUSDT","BINANCE:AVAXUSDT","BINANCE:ADAUSDT",
+                                "AMEX:SPY","NASDAQ:QQQ","NASDAQ:NVDA","NASDAQ:TSLA",
+                                "NASDAQ:AAPL","NASDAQ:MSFT","NYSE:AMD","AMEX:GLD",
+                                "FX_IDC:USDJPY","BITSTAMP:XRPUSD"
+                            ],
+                            "studies": ["RSI@tv-basicstudies","MAExp@tv-basicstudies","MACD@tv-basicstudies"],
+                            "height": "700",
+                            "width": "100%"
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Social Sentiment -->
+    <section class="section">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">SOCIAL PULSE</div>
+                <div class="section-subtitle">Trending Sentiment from StockTwits</div>
+                <div class="section-divider"></div>
+            </div>
+
+            <div style="max-width:1200px;margin:0 auto;overflow:hidden;display:flex;justify-content:center;">
+                <div class="stocktwits-widget">
+                    <script async src="https://widgets-api.stocktwits-cdn.com/loader.js">
+                    {
+                        "assetClass": "all",
+                        "colorTheme": "dark",
+                        "location": "US",
+                        "logos": true,
+                        "quantity": 30,
+                        "sparklines": true,
+                        "transparent": false,
+                        "widget": "cards"
+                    }
+                    </script>
+                </div>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="herald.html">Herald Cries</a>
-                <a href="https://lab.ascensionrealm.com" target="_blank">Strategy Lab</a>
+                <a href="/herald">Herald Cries</a>
+                <a href="/lab">Strategy Lab</a>
                 <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                <a href="https://herald.ascensionrealm.com" target="_blank">Team Login</a>
-                <a href="https://ascensionrealm.com/privacy">Privacy Policy</a>
-                <a href="https://ascensionrealm.com/terms">Terms of Service</a>
+                <a href="/lab">Team Login</a>
             </div>
             <p class="footer-note">
                 Coming Soon
@@ -603,6 +1253,109 @@
                 stopAutoRotate();
                 showIcon(index);
                 startAutoRotate();
+
+        // BTC Dominance + Alt Season + Market Direction
+        async function loadMarketSentiment() {
+            try {
+                var resp = await fetch('https://api.coingecko.com/api/v3/global');
+                var data = await resp.json();
+                var global = data.data;
+
+                // BTC Dominance
+                var btcDom = global.market_cap_percentage.btc;
+                document.getElementById('btc-dom-value').textContent = btcDom.toFixed(1) + '%';
+                var domEl = document.getElementById('btc-dom-value');
+                domEl.style.color = btcDom > 55 ? 'var(--gold)' : (btcDom < 45 ? 'var(--cyan)' : 'var(--text-primary)');
+
+                // Alt/BTC Season (rough heuristic: BTC dom < 50% = alt season)
+                var seasonEl = document.getElementById('season-value');
+                var seasonLabel = document.getElementById('season-label');
+                var seasonInd = document.getElementById('season-indicator');
+                if (btcDom > 60) {
+                    seasonEl.textContent = 'BTC SEASON';
+                    seasonEl.style.color = 'var(--gold)';
+                    seasonLabel.textContent = 'Bitcoin Dominance High';
+                    seasonInd.style.left = (btcDom) + '%';
+                } else if (btcDom < 45) {
+                    seasonEl.textContent = 'ALT SEASON';
+                    seasonEl.style.color = 'var(--cyan)';
+                    seasonLabel.textContent = 'Altcoin Dominance Rising';
+                    seasonInd.style.left = (btcDom) + '%';
+                } else {
+                    seasonEl.textContent = 'NEUTRAL';
+                    seasonEl.style.color = 'var(--text-secondary)';
+                    seasonLabel.textContent = 'Balanced Market';
+                    seasonInd.style.left = (btcDom) + '%';
+                }
+
+                // Market Cap
+                var mcap = global.total_market_cap.usd;
+                var mcapStr = '$' + (mcap / 1e12).toFixed(2) + 'T';
+                document.getElementById('global-mcap').textContent = mcapStr;
+
+                var mcapChange = global.market_cap_change_percentage_24h_usd;
+                var changeEl = document.getElementById('global-mcap-change');
+                changeEl.textContent = (mcapChange >= 0 ? '+' : '') + mcapChange.toFixed(2) + '% (24h)';
+                changeEl.style.color = mcapChange >= 0 ? 'var(--green)' : 'var(--red)';
+
+                // Market Direction
+                var dirEl = document.getElementById('market-dir-value');
+                var dirLabel = document.getElementById('market-dir-label');
+                if (mcapChange > 2) {
+                    dirEl.textContent = '\u25B2';
+                    dirEl.style.color = 'var(--green)';
+                    dirLabel.textContent = 'Strong Bullish';
+                } else if (mcapChange > 0) {
+                    dirEl.textContent = '\u25B2';
+                    dirEl.style.color = '#22c55e88';
+                    dirLabel.textContent = 'Mildly Bullish';
+                } else if (mcapChange > -2) {
+                    dirEl.textContent = '\u25BC';
+                    dirEl.style.color = '#ef444488';
+                    dirLabel.textContent = 'Mildly Bearish';
+                } else {
+                    dirEl.textContent = '\u25BC';
+                    dirEl.style.color = 'var(--red)';
+                    dirLabel.textContent = 'Strong Bearish';
+                }
+            } catch(e) {
+                console.log('Sentiment fetch error:', e);
+            }
+        }
+        loadMarketSentiment();
+        setInterval(loadMarketSentiment, 300000);
+
+
+        // Fear & Greed Index
+        async function loadFearGreed() {
+            try {
+                const resp = await fetch('https://api.alternative.me/fng/?limit=1');
+                const data = await resp.json();
+                const fng = data.data[0];
+                const value = parseInt(fng.value);
+                const label = fng.value_classification;
+
+                document.getElementById('fng-value').textContent = value;
+                document.getElementById('fng-label').textContent = label;
+                document.getElementById('fng-indicator').style.left = value + '%';
+
+                // Color based on value
+                const el = document.getElementById('fng-value');
+                if (value <= 25) el.style.color = '#ef4444';
+                else if (value <= 45) el.style.color = '#f59e0b';
+                else if (value <= 55) el.style.color = '#94a3b8';
+                else if (value <= 75) el.style.color = '#22c55e';
+                else el.style.color = '#10b981';
+            } catch(e) {
+                document.getElementById('fng-value').textContent = '--';
+                document.getElementById('fng-label').textContent = 'Unavailable';
+            }
+        }
+        loadFearGreed();
+        setInterval(loadFearGreed, 300000); // 5 min
+
+
+
             });
         });
 
@@ -611,6 +1364,109 @@
         flipbook.addEventListener('mouseleave', startAutoRotate);
 
         startAutoRotate();
+
+        // BTC Dominance + Alt Season + Market Direction
+        async function loadMarketSentiment() {
+            try {
+                var resp = await fetch('https://api.coingecko.com/api/v3/global');
+                var data = await resp.json();
+                var global = data.data;
+
+                // BTC Dominance
+                var btcDom = global.market_cap_percentage.btc;
+                document.getElementById('btc-dom-value').textContent = btcDom.toFixed(1) + '%';
+                var domEl = document.getElementById('btc-dom-value');
+                domEl.style.color = btcDom > 55 ? 'var(--gold)' : (btcDom < 45 ? 'var(--cyan)' : 'var(--text-primary)');
+
+                // Alt/BTC Season (rough heuristic: BTC dom < 50% = alt season)
+                var seasonEl = document.getElementById('season-value');
+                var seasonLabel = document.getElementById('season-label');
+                var seasonInd = document.getElementById('season-indicator');
+                if (btcDom > 60) {
+                    seasonEl.textContent = 'BTC SEASON';
+                    seasonEl.style.color = 'var(--gold)';
+                    seasonLabel.textContent = 'Bitcoin Dominance High';
+                    seasonInd.style.left = (btcDom) + '%';
+                } else if (btcDom < 45) {
+                    seasonEl.textContent = 'ALT SEASON';
+                    seasonEl.style.color = 'var(--cyan)';
+                    seasonLabel.textContent = 'Altcoin Dominance Rising';
+                    seasonInd.style.left = (btcDom) + '%';
+                } else {
+                    seasonEl.textContent = 'NEUTRAL';
+                    seasonEl.style.color = 'var(--text-secondary)';
+                    seasonLabel.textContent = 'Balanced Market';
+                    seasonInd.style.left = (btcDom) + '%';
+                }
+
+                // Market Cap
+                var mcap = global.total_market_cap.usd;
+                var mcapStr = '$' + (mcap / 1e12).toFixed(2) + 'T';
+                document.getElementById('global-mcap').textContent = mcapStr;
+
+                var mcapChange = global.market_cap_change_percentage_24h_usd;
+                var changeEl = document.getElementById('global-mcap-change');
+                changeEl.textContent = (mcapChange >= 0 ? '+' : '') + mcapChange.toFixed(2) + '% (24h)';
+                changeEl.style.color = mcapChange >= 0 ? 'var(--green)' : 'var(--red)';
+
+                // Market Direction
+                var dirEl = document.getElementById('market-dir-value');
+                var dirLabel = document.getElementById('market-dir-label');
+                if (mcapChange > 2) {
+                    dirEl.textContent = '\u25B2';
+                    dirEl.style.color = 'var(--green)';
+                    dirLabel.textContent = 'Strong Bullish';
+                } else if (mcapChange > 0) {
+                    dirEl.textContent = '\u25B2';
+                    dirEl.style.color = '#22c55e88';
+                    dirLabel.textContent = 'Mildly Bullish';
+                } else if (mcapChange > -2) {
+                    dirEl.textContent = '\u25BC';
+                    dirEl.style.color = '#ef444488';
+                    dirLabel.textContent = 'Mildly Bearish';
+                } else {
+                    dirEl.textContent = '\u25BC';
+                    dirEl.style.color = 'var(--red)';
+                    dirLabel.textContent = 'Strong Bearish';
+                }
+            } catch(e) {
+                console.log('Sentiment fetch error:', e);
+            }
+        }
+        loadMarketSentiment();
+        setInterval(loadMarketSentiment, 300000);
+
+
+        // Fear & Greed Index
+        async function loadFearGreed() {
+            try {
+                const resp = await fetch('https://api.alternative.me/fng/?limit=1');
+                const data = await resp.json();
+                const fng = data.data[0];
+                const value = parseInt(fng.value);
+                const label = fng.value_classification;
+
+                document.getElementById('fng-value').textContent = value;
+                document.getElementById('fng-label').textContent = label;
+                document.getElementById('fng-indicator').style.left = value + '%';
+
+                // Color based on value
+                const el = document.getElementById('fng-value');
+                if (value <= 25) el.style.color = '#ef4444';
+                else if (value <= 45) el.style.color = '#f59e0b';
+                else if (value <= 55) el.style.color = '#94a3b8';
+                else if (value <= 75) el.style.color = '#22c55e';
+                else el.style.color = '#10b981';
+            } catch(e) {
+                document.getElementById('fng-value').textContent = '--';
+                document.getElementById('fng-label').textContent = 'Unavailable';
+            }
+        }
+        loadFearGreed();
+        setInterval(loadFearGreed, 300000); // 5 min
+
+
+
     </script>
 </body>
 </html>
