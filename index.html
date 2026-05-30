@@ -158,6 +158,33 @@
             color: var(--bg-dark);
         }
 
+        .nav-links .nav-disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .nav-links .nav-disabled:hover {
+            color: var(--text-secondary);
+        }
+
+        .nav-links .nav-disabled sup {
+            font-size: 0.6em;
+            color: var(--gold);
+            letter-spacing: 0;
+        }
+
+        /* Hamburger toggle — hidden on desktop, shown on mobile */
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
         /* Hero Section */
         .hero {
             min-height: 100vh;
@@ -394,6 +421,15 @@
             color: var(--cyan);
         }
 
+        .footer-links a.footer-disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .footer-links a.footer-disabled:hover {
+            color: var(--text-secondary);
+        }
+
         .footer-note {
             color: var(--text-muted);
             font-size: 14px;
@@ -442,12 +478,32 @@
                 justify-content: center;
             }
 
+            .nav-toggle {
+                display: block;
+            }
+
             .nav-links {
-                gap: 15px;
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+                background: rgba(10, 10, 15, 0.98);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 10px;
+            }
+
+            .nav-links.open {
+                display: flex;
             }
 
             .nav-links a {
-                font-size: 12px;
+                font-size: 14px;
             }
         }
 
@@ -649,32 +705,6 @@
             text-transform: uppercase;
         }
 
-        /* StockTwits */
-        .social-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        
-        .social-card { position: relative; }
-        .social-card * { scrollbar-width: none; -ms-overflow-style: none; }
-        .social-card iframe { overflow: hidden !important; scrollbar-width: none; border: none !important; }
-        .social-card .stocktwits-widget { overflow: hidden; }
-        .social-card::after { content:''; position:absolute; top:0; right:0; width:12px; height:100%; background:var(--bg-card); z-index:10; pointer-events:none; }
-        .social-card *::-webkit-scrollbar { display: none; }
-        .social-card iframe { overflow: hidden !important; }
-
-        .social-card {
-            background: var(--bg-card);
-            border: 1px solid rgba(255,255,255,0.06);
-            border-radius: 12px;
-            overflow: hidden;
-            min-height: 180px;
-        }
-
         @media (max-width: 768px) {
             .market-grid { grid-template-columns: 1fr; }
             .fleet-grid { grid-template-columns: 1fr 1fr; }
@@ -720,19 +750,22 @@
         <div class="container">
             <div class="header-inner">
                 <div></div>
-                <nav class="nav-links">
+                <nav class="nav-links" id="navLinks">
                     <a href="/herald">Herald Cries</a>
                     <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
+                    <a href="https://lab.ascensionrealm.com/lab">Watchtower</a>
+                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">Arena <sup>Soon</sup></a>
+                    <a href="#partnerships">Partnerships</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                    <a href="/lab" class="team-login">Team Login</a>
                 </nav>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
             </div>
         </div>
     </header>
 
     <main>
     <div class="container">
-      <div class="beta-banner"><strong>BETA COMING SOON</strong> — Currently paper trading only. No real money is used. All equity shown represents simulated paper accounts.</div>
+      <div class="beta-banner"><strong>NOW IN BETA</strong> — Currently paper trading only. No real money is used. All equity shown represents simulated paper accounts.</div>
     </div>
         <section class="hero">
             <div class="container">
@@ -769,7 +802,7 @@
                 </p>
                 
                 <p class="intro">
-                    Something is coming. Where tradition meets the frontier.
+                    The realm is open. Begin your ascension.
                 </p>
                 
                 <div class="cta-buttons">
@@ -779,13 +812,6 @@
                         </svg>
                         Join Discord
                     </a>
-                    <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank" class="btn btn-secondary">
-                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                            <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/>
-                            <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/>
-                        </svg>
-                        Whitepaper
-                    </a>
                     <a href="/lab" class="btn btn-ghost">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 3h6l2 4H7L9 3z"/>
@@ -794,13 +820,20 @@
                         </svg>
                         ⚗️ Strategy Lab <sup style="font-size:0.6em;color:var(--cyan);">BETA</sup>
                     </a>
-                    <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon">
+                    <a href="#" class="btn btn-ghost btn-disabled" title="Members Only" onclick="return false;">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+                            <circle cx="12" cy="12" r="3"/>
+                        </svg>
+                        🔭 Watchtower — Members Only
+                    </a>
+                    <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon" onclick="return false;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="2" y="3" width="20" height="14" rx="2" ry="2"/>
                             <line x1="8" y1="21" x2="16" y2="21"/>
                             <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
-                        dApp — Soon
+                        ⚡ DApp — Coming Soon
                     </a>
                 </div>
             </div>
@@ -1176,7 +1209,7 @@
                 <div class="section-divider"></div>
             </div>
 
-            <div style="max-width:1200px;margin:0 auto;overflow:hidden;display:flex;justify-content:center;">
+            <div style="max-width:1200px;margin:0 auto;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;">
                 <div class="stocktwits-widget">
                     <script async src="https://widgets-api.stocktwits-cdn.com/loader.js">
                     {
@@ -1195,16 +1228,40 @@
         </div>
     </section>
 
+    <!-- Partnerships -->
+    <section class="section" id="partnerships">
+        <div class="container">
+            <div class="section-header">
+                <div class="section-title">PARTNERSHIPS</div>
+                <div class="section-subtitle">Build the Realm With Us</div>
+                <div class="section-divider"></div>
+            </div>
+            <p style="max-width:680px;margin:0 auto 28px;text-align:center;color:var(--text-secondary);line-height:1.7;">
+                Ascension is open to partnerships, integrations, and collaborations across traditional and digital markets. If you're building in the space and see a fit, the gates are open.
+            </p>
+            <div style="text-align:center;">
+                <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry" class="btn btn-primary">
+                    Partnership Inquiries
+                </a>
+            </div>
+        </div>
+    </section>
+
     <footer>
         <div class="container">
             <div class="footer-links">
                 <a href="/herald">Herald Cries</a>
                 <a href="/lab">Strategy Lab</a>
+                <a href="https://lab.ascensionrealm.com/lab">Watchtower</a>
+                <a href="#" class="footer-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">Arena — Coming Soon</a>
+                <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry">Partnership Inquiries</a>
+                <a href="#" class="footer-disabled" title="Updating Soon" aria-disabled="true" onclick="return false;">Whitepaper — Updating Soon</a>
+                <a href="/terms">Terms of Service</a>
+                <a href="/privacy">Privacy Policy</a>
                 <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                <a href="/lab">Team Login</a>
             </div>
             <p class="footer-note">
-                Coming Soon
+                In Beta — Active Iterative Development
             </p>
             <p class="copyright">
                 © 2026 Ascension. All rights reserved.
@@ -1213,6 +1270,25 @@
     </footer>
     
     <script>
+        // Mobile nav (hamburger) toggle
+        (function () {
+            const toggle = document.getElementById('navToggle');
+            const links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', () => {
+                    const open = links.classList.toggle('open');
+                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+                // Close the menu after tapping a link
+                links.querySelectorAll('a').forEach((a) => {
+                    a.addEventListener('click', () => {
+                        links.classList.remove('open');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+        })();
+
         // Icon Flipbook Animation
         const icons = document.querySelectorAll('.logo-icon');
         const dots = document.querySelectorAll('.icon-dot');

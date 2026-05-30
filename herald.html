@@ -32,10 +32,11 @@
             background: var(--bg-dark);
             color: var(--text-primary);
             min-height: 100vh;
+            overflow-x: hidden;
         }
 
         .container {
-            max-width: 1400px;
+            max-width: 1200px;
             margin: 0 auto;
             padding: 0 20px;
         }
@@ -96,6 +97,57 @@
 
         .nav-links a:hover {
             color: var(--text-primary);
+        }
+
+        .nav-links .nav-disabled {
+            opacity: 0.45;
+            cursor: not-allowed;
+        }
+
+        .nav-links .nav-disabled:hover {
+            color: var(--text-secondary);
+        }
+
+        .nav-links .nav-disabled sup {
+            font-size: 0.6em;
+            color: var(--gold);
+        }
+
+        .nav-toggle {
+            display: none;
+            background: none;
+            border: none;
+            color: var(--text-secondary);
+            font-size: 26px;
+            line-height: 1;
+            cursor: pointer;
+            padding: 4px 8px;
+        }
+
+        @media (max-width: 768px) {
+            .nav-toggle {
+                display: block;
+            }
+
+            .nav-links {
+                display: none;
+                position: absolute;
+                top: 100%;
+                left: 20px;
+                right: 20px;
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 18px;
+                background: rgba(10, 10, 15, 0.98);
+                border: 1px solid rgba(255, 255, 255, 0.08);
+                border-radius: 8px;
+                padding: 20px;
+                margin-top: 10px;
+            }
+
+            .nav-links.open {
+                display: flex;
+            }
         }
 
         /* Main Layout */
@@ -648,13 +700,15 @@
                     <img src="/images/logo.png" alt="Ascension Logo">
                     <span class="logo-text">Ascension</span>
                 </a>
-                <nav class="nav-links">
+                <nav class="nav-links" id="navLinks">
                     <a href="/">Home</a>
                     <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
-                    <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
+                    <a href="https://lab.ascensionrealm.com/lab">Watchtower</a>
+                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">Arena <sup>Soon</sup></a>
+                    <a href="/#partnerships">Partnerships</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
-                    <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
                 </nav>
+                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
             </div>
         </div>
     </header>
@@ -800,6 +854,24 @@
     </footer>
 
     <script>
+        // Mobile nav (hamburger) toggle
+        (function () {
+            const toggle = document.getElementById('navToggle');
+            const links = document.getElementById('navLinks');
+            if (toggle && links) {
+                toggle.addEventListener('click', () => {
+                    const open = links.classList.toggle('open');
+                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+                });
+                links.querySelectorAll('a').forEach((a) => {
+                    a.addEventListener('click', () => {
+                        links.classList.remove('open');
+                        toggle.setAttribute('aria-expanded', 'false');
+                    });
+                });
+            }
+        })();
+
         const API_BASE = 'https://tps3qkvor3.execute-api.us-east-1.amazonaws.com/prod';
         let currentRealm = 'all';
 
