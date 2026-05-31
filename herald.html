@@ -90,6 +90,9 @@
         }
 
         .nav-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
@@ -619,6 +622,9 @@
         }
 
         .footer-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
             color: var(--text-secondary);
             text-decoration: none;
             transition: color 0.2s;
@@ -708,11 +714,11 @@ body { padding-top: 92px !important; } /* data-navfix-pad: clear fixed ticker(46
                 </a>
                 <nav class="nav-links" id="navLinks">
                     <a href="/">Home</a>
-                    <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
-                    <a href="https://lab.ascensionrealm.com/lab">🏰 Watchtower</a>
-                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">⚔️ Arena <sup>Soon</sup></a>
-                    <a href="/#partnerships">🤝 Partnerships</a>
-                    <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                    <a href="/lab" style="color: var(--cyan); font-weight: 600;"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
+                    <a href="https://lab.ascensionrealm.com/lab"><span class="nav-emoji">🏰</span>Watchtower</a>
+                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;"><span class="nav-emoji">⚔️</span>Arena <sup>Soon</sup></a>
+                    <a href="/#partnerships"><span class="nav-emoji">🤝</span>Partnerships</a>
+                    <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
                 </nav>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
             </div>
@@ -850,8 +856,8 @@ body { padding-top: 92px !important; } /* data-navfix-pad: clear fixed ticker(46
             <div class="footer-content">
                 <div class="footer-links">
                     <a href="/">Home</a>
-                    <a href="/lab">⚗️ Strategy Lab</a>
-                    <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
+                    <a href="/lab"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
+                    <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
                     <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
                 </div>
                 <p class="copyright">© 2026 Ascension. All rights reserved.</p>
