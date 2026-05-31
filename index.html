@@ -753,9 +753,9 @@
                 <nav class="nav-links" id="navLinks">
                     <a href="/herald">Herald Cries</a>
                     <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
-                    <a href="https://lab.ascensionrealm.com/lab">Watchtower</a>
-                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">Arena <sup>Soon</sup></a>
-                    <a href="#partnerships">Partnerships</a>
+                    <a href="https://lab.ascensionrealm.com/lab" style="color: var(--gold); font-weight: 600;">Watchtower</a>
+                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;" style="color: rgba(245,158,11,0.45);">Arena <sup>Soon</sup></a>
+                    <a href="#partnerships" style="color: var(--purple); font-weight: 600;">Partnerships</a>
                     <a href="https://discord.gg/BBSs8auWBu" target="_blank">Discord</a>
                 </nav>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
@@ -1205,25 +1205,55 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-title">SOCIAL PULSE</div>
-                <div class="section-subtitle">Trending Sentiment from StockTwits</div>
+                <div class="section-subtitle">Trending Markets — Live from CoinGecko</div>
                 <div class="section-divider"></div>
             </div>
 
             <div style="max-width:1200px;margin:0 auto;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;">
-                <div class="stocktwits-widget">
-                    <script async src="https://widgets-api.stocktwits-cdn.com/loader.js">
-                    {
-                        "assetClass": "all",
-                        "colorTheme": "dark",
-                        "location": "US",
-                        "logos": true,
-                        "quantity": 30,
-                        "sparklines": true,
-                        "transparent": true,
-                        "widget": "cards"
-                    }
-                    </script>
+                <div id="social-pulse-row" style="display:flex;gap:14px;padding:4px 2px 12px;min-width:min-content;">
+                    <div style="color:rgba(255,255,255,0.4);font-family:'Rajdhani',sans-serif;padding:20px;">Loading trending markets…</div>
                 </div>
+                <script>
+                (function(){
+                  var row = document.getElementById('social-pulse-row');
+                  if(!row) return;
+                  function fmtPrice(p){
+                    if(p==null||isNaN(p)) return '—';
+                    p=Number(p);
+                    if(p>=1) return '$'+p.toLocaleString('en-US',{maximumFractionDigits:2});
+                    return '$'+p.toLocaleString('en-US',{maximumFractionDigits:6});
+                  }
+                  function card(c){
+                    var it=c.item||{}, d=it.data||{};
+                    var chg = d.price_change_percentage_24h && d.price_change_percentage_24h.usd;
+                    chg = (chg==null?null:Number(chg));
+                    var up = chg!=null && chg>=0;
+                    var col = chg==null?'rgba(255,255,255,0.5)':(up?'#10b981':'#ef4444');
+                    var arrow = chg==null?'':(up?'▲':'▼');
+                    var price = (d.price!=null)?fmtPrice(d.price):'—';
+                    var chgTxt = chg==null?'—':(up?'+':'')+chg.toFixed(2)+'%';
+                    var img = it.thumb||it.small||'';
+                    return '<div style="flex:0 0 auto;width:158px;background:rgba(20,20,32,0.72);border:1px solid rgba(255,255,255,0.08);border-radius:12px;padding:14px;font-family:Rajdhani,sans-serif;">'
+                      +'<div style="display:flex;align-items:center;gap:8px;margin-bottom:10px;">'
+                      +(img?'<img src="'+img+'" alt="" width="22" height="22" style="border-radius:50%;flex:0 0 auto;">':'')
+                      +'<div style="overflow:hidden;"><div style="color:#e2e8f0;font-weight:600;font-size:0.9rem;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">'+(it.name||'')+'</div>'
+                      +'<div style="color:rgba(255,255,255,0.45);font-size:0.72rem;letter-spacing:0.5px;">'+String(it.symbol||'').toUpperCase()+(it.market_cap_rank?' · #'+it.market_cap_rank:'')+'</div></div></div>'
+                      +'<div style="color:#f0f0f5;font-size:1.05rem;font-weight:700;">'+price+'</div>'
+                      +'<div style="color:'+col+';font-size:0.82rem;font-weight:600;margin-top:2px;">'+arrow+' '+chgTxt+'</div>'
+                      +'</div>';
+                  }
+                  fetch('https://api.coingecko.com/api/v3/search/trending')
+                    .then(function(r){ if(!r.ok) throw 0; return r.json(); })
+                    .then(function(j){
+                      var coins=(j&&j.coins)||[];
+                      if(!coins.length) throw 0;
+                      row.innerHTML = coins.slice(0,15).map(card).join('');
+                    })
+                    .catch(function(){
+                      row.innerHTML = '<div style="color:rgba(255,255,255,0.4);font-family:Rajdhani,sans-serif;padding:20px;">Trending market data is taking a breather — check back shortly.</div>';
+                    });
+                })();
+                </script>
             </div>
         </div>
     </section>
