@@ -1,0 +1,18 @@
+name: Deploy front site to EC2
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+# Avoid overlapping deploys if pushes land back-to-back.
+concurrency:
+  group: deploy-frontend
+  cancel-in-progress: false
+
+jobs:
+  deploy:
+    runs-on: [self-hosted, ascension-ec2]
+    steps:
+      - name: Run front-end deploy script
+        run: /opt/ascension/scripts/deploy_frontend.sh
