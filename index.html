@@ -1,4 +1,3 @@
-<!-- security hardening test - runner migration verification -->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -29,7 +28,7 @@
             --purple-light: #a78bfa;
             --text-primary: #f1f5f9;
             --text-secondary: #94a3b8;
-            --text-muted: #64748b;
+            --text-muted: #788698; /* raised from #64748b: 4.15:1 -> 5.33:1 vs --bg-dark for WCAG AA */
         }
 
         * {
@@ -741,11 +740,11 @@
             <div class="header-inner">
                 <div></div>
                 <nav class="nav-links" id="navLinks">
-                    <a href="/herald">📜 Herald Cries</a>
-                    <a href="/lab" style="color: var(--cyan); font-weight: 600;">⚗️ Strategy Lab</a>
-                    <a href="https://lab.ascensionrealm.com/lab" style="color: var(--gold); font-weight: 600;">🏰 Watchtower</a>
-                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;" style="color: rgba(245,158,11,0.45);">⚔️ Arena <sup>Soon</sup></a>
-                    <a href="#partnerships" style="color: var(--purple); font-weight: 600;">🤝 Partnerships</a>
+                    <a href="/herald" title="Herald Cries — News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
+                    <a href="/lab" style="color: var(--cyan); font-weight: 600;" title="Strategy Lab — Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
+                    <a href="https://lab.ascensionrealm.com/lab" style="color: var(--gold); font-weight: 600;" title="Watchtower — Live bot monitoring & trading"><span aria-hidden="true">🏰</span> Watchtower</a>
+                    <a href="#" class="nav-disabled" title="Arena — Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;" style="color: rgba(245,158,11,0.45);"><span aria-hidden="true">⚔️</span> Arena <sup>Soon</sup></a>
+                    <a href="#partnerships" style="color: var(--purple); font-weight: 600;" title="Partnerships — Build the realm with us"><span aria-hidden="true">🤝</span> Partnerships</a>
                     <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
                 </nav>
                 <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
@@ -773,15 +772,15 @@
                         <img src="images/icon-crown.png" alt="Governance" class="logo-icon" data-label="Governance">
                     </div>
                     <div class="icon-label active">The Guardian</div>
-                    <div class="icon-nav">
-                        <button class="icon-dot active" data-index="0"></button>
-                        <button class="icon-dot" data-index="1"></button>
-                        <button class="icon-dot" data-index="2"></button>
-                        <button class="icon-dot" data-index="3"></button>
-                        <button class="icon-dot" data-index="4"></button>
-                        <button class="icon-dot" data-index="5"></button>
-                        <button class="icon-dot" data-index="6"></button>
-                        <button class="icon-dot" data-index="7"></button>
+                    <div class="icon-nav" role="tablist" aria-label="Brand icon carousel">
+                        <button class="icon-dot active" data-index="0" aria-label="Show The Guardian"></button>
+                        <button class="icon-dot" data-index="1" aria-label="Show The Gateway"></button>
+                        <button class="icon-dot" data-index="2" aria-label="Show Risk First"></button>
+                        <button class="icon-dot" data-index="3" aria-label="Show Market Intelligence"></button>
+                        <button class="icon-dot" data-index="4" aria-label="Show Position Balance"></button>
+                        <button class="icon-dot" data-index="5" aria-label="Show Automation"></button>
+                        <button class="icon-dot" data-index="6" aria-label="Show Knowledge"></button>
+                        <button class="icon-dot" data-index="7" aria-label="Show Governance"></button>
                     </div>
                 </div>
                 
@@ -790,9 +789,14 @@
                 <p class="tagline">
                     <span class="highlight-gold">Traditional Discipline</span> · <span class="highlight-cyan">Digital Frontier</span>
                 </p>
-                
+
+                <p class="asset-classes" style="font-family:'Cinzel',serif;font-size:clamp(14px,2.4vw,18px);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;color:var(--text-primary);">
+                    <span class="highlight-gold">Stocks</span> · <span class="highlight-gold">ETFs</span> · <span class="highlight-gold">Futures</span> · <span class="highlight-gold">Options</span> · <span class="highlight-cyan">Crypto</span>
+                </p>
+
                 <p class="intro">
-                    The realm is open. Begin your ascension.
+                    The realm is open. Begin your ascension.<br>
+                    <span style="font-size:16px;color:var(--text-secondary);">Automated AI trading bots across stocks, ETFs, futures, options, and crypto markets.</span>
                 </p>
                 
                 <div class="cta-buttons">
@@ -808,14 +812,14 @@
                             <path d="M7 7v10a2 2 0 002 2h6a2 2 0 002-2V7"/>
                             <circle cx="12" cy="13" r="2"/>
                         </svg>
-                        ⚗️ Strategy Lab <sup style="font-size:0.6em;color:var(--cyan);">BETA</sup>
+                        <span aria-hidden="true">⚗️</span> Strategy Lab <sup style="font-size:0.6em;color:var(--cyan);">BETA</sup>
                     </a>
                     <a href="#" class="btn btn-ghost btn-disabled" title="Members Only" onclick="return false;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        🔭 Watchtower — Members Only
+                        <span aria-hidden="true">🔭</span> Watchtower — Members Only
                     </a>
                     <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon" onclick="return false;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -823,7 +827,7 @@
                             <line x1="8" y1="21" x2="16" y2="21"/>
                             <line x1="12" y1="17" x2="12" y2="21"/>
                         </svg>
-                        ⚡ DApp — Coming Soon
+                        <span aria-hidden="true">⚡</span> DApp — Coming Soon
                     </a>
                 </div>
             </div>
@@ -1195,7 +1199,7 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-title">SOCIAL PULSE</div>
-                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--gold-light);margin-top:6px;">⚡ CIPHER REALM</div>
+                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--gold-light);margin-top:6px;" title="Cipher Realm — Crypto markets"><span aria-hidden="true">⚡</span> CIPHER REALM <span style="font-size:0.7rem;letter-spacing:1px;color:var(--text-secondary);">(Crypto Markets)</span></div>
                 <div class="section-subtitle">Trending Crypto — Live from CoinGecko</div>
                 <div class="section-divider"></div>
             </div>
@@ -1253,8 +1257,8 @@
     <section class="section">
         <div class="container">
             <div class="section-header">
-                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--gold-light);margin-top:6px;">⚔️ SOVEREIGN REALM</div>
-                <div class="section-subtitle">Trending Markets — Live</div>
+                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--gold-light);margin-top:6px;" title="Sovereign Realm — Stocks & ETFs"><span aria-hidden="true">⚔️</span> SOVEREIGN REALM <span style="font-size:0.7rem;letter-spacing:1px;color:var(--text-secondary);">(Stocks & ETFs)</span></div>
+                <div class="section-subtitle">Trending Stocks & ETFs — Live</div>
                 <div class="section-divider"></div>
             </div>
             <div class="pulse-scroll" style="max-width:1200px;margin:0 auto;overflow-x:auto;overflow-y:hidden;-webkit-overflow-scrolling:touch;">
@@ -1350,10 +1354,10 @@
     <footer>
         <div class="container">
             <div class="footer-links">
-                <a href="/herald">📜 Herald Cries</a>
-                <a href="/lab">⚗️ Strategy Lab</a>
-                <a href="https://lab.ascensionrealm.com/lab">🏰 Watchtower</a>
-                <a href="#" class="footer-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;">⚔️ Arena — Coming Soon</a>
+                <a href="/herald" title="News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
+                <a href="/lab" title="Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
+                <a href="https://lab.ascensionrealm.com/lab" title="Live bot monitoring & trading"><span aria-hidden="true">🏰</span> Watchtower</a>
+                <a href="#" class="footer-disabled" title="Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;"><span aria-hidden="true">⚔️</span> Arena — Coming Soon</a>
                 <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry">Partnership Inquiries</a>
                 <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
                 <a href="/terms">Terms of Service</a>
@@ -1362,6 +1366,9 @@
             </div>
             <p class="footer-note">
                 In Beta — Active Iterative Development
+            </p>
+            <p class="footer-note">
+                Support: <a href="mailto:support@ascensionrealm.com" style="color: var(--cyan); text-decoration: none;">support@ascensionrealm.com</a>
             </p>
             <p class="copyright">
                 © 2026 Ascension. All rights reserved.
