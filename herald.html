@@ -702,7 +702,7 @@
                 <nav class="nav-links" id="navLinks">
                     <a href="/">Home</a>
                     <a href="/lab" style="color: var(--cyan); font-weight: 600;"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
-                    <a href="https://lab.ascensionrealm.com/lab"><span class="nav-emoji">🏰</span>Watchtower</a>
+                    <a href="https://ascensionrealm.com/lab/watchtower.html"><span class="nav-emoji">🏰</span>Watchtower</a>
                     <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;"><span class="nav-emoji">⚔️</span>Arena <sup>Soon</sup></a>
                     <a href="/#partnerships"><span class="nav-emoji">🤝</span>Partnerships</a>
                     <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
@@ -1086,6 +1086,110 @@
     }
     loadHeraldSidebar();
     setInterval(loadHeraldSidebar, 300000);
+</script>
+    <!-- CP-30 Fix 7: AF cross-site nav on Herald Cries -->
+<!-- ===== AF cross-site nav (CP-29) — self-contained; injects its own CSS+DOM ===== -->
+<script>
+(function(){
+  var LOGIN = 'https://ascensionrealm.com/login';
+  var OPS   = 'https://ops.ascensionrealm.com/';
+  // NOTE: lab paths use the ascensionrealm.com origin, NOT lab.ascensionrealm.com.
+  // The lab subdomain 301-rewrites "/<path>" -> "ascensionrealm.com/lab/<path>",
+  // so a link that already contains /lab (e.g. lab.ascensionrealm.com/lab/account.html)
+  // doubles to /lab/lab/... and 404s. Hitting the canonical origin avoids that.
+  var LINKS = {
+    ascension:  'https://ascensionrealm.com',
+    lab:        'https://ascensionrealm.com/lab/',
+    watchtower: 'https://ascensionrealm.com/lab/watchtower.html',
+    arena:      'https://arena.ascensionrealm.com'
+  };
+  var ACCOUNT = 'https://ascensionrealm.com/lab/account.html';
+  var css = ''
+    + '#afnav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;gap:4px;'
+    + 'padding:10px 20px;background:rgba(10,10,15,.92);backdrop-filter:blur(8px);'
+    + 'border-bottom:1px solid rgba(245,158,11,.14);font-family:"Rajdhani","Helvetica Neue",Arial,sans-serif;flex-wrap:wrap}'
+    + '#afnav a,#afnav .afitem{color:#b8ad96;font-size:.86rem;font-weight:600;letter-spacing:.3px;text-decoration:none;'
+    + 'padding:6px 12px;border-radius:8px;transition:.15s;white-space:nowrap;cursor:pointer;background:none;border:none;font-family:inherit}'
+    + '#afnav a:hover,#afnav .afitem:hover{color:#ece5d6;background:rgba(245,158,11,.08)}'
+    + '#afnav .afbrand{color:#f59e0b;font-weight:700;letter-spacing:1px}'
+    + '#afnav .afsoon{opacity:.42;cursor:default;pointer-events:none}'
+    + '#afnav .afsoon .badge{margin-left:5px;font-size:.5rem;font-weight:700;letter-spacing:.5px;padding:1px 5px;'
+    + 'border-radius:999px;background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}'
+    + '#afnav .afops{color:#22d3ee}#afnav .afright{margin-left:auto;display:flex;align-items:center;gap:10px}'
+    + '#afnav .afwho{font-size:.82rem;color:#b8ad96}#afnav .aflogout{color:#f4a3a3}#afnav .aflogout:hover{color:#fecaca;background:rgba(239,68,68,.10)}#afnav .afsignin{background:linear-gradient(135deg,#f59e0b,#d97706);'
+    + 'color:#1a1206;font-weight:700;border-radius:999px;padding:6px 16px}'
+    + '#afmodal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}'
+    + '#afmodal.on{display:flex}#afmodal .box{background:#12121a;border:1px solid rgba(245,158,11,.3);border-radius:14px;max-width:380px;width:100%;padding:26px;text-align:center;font-family:"Rajdhani",sans-serif;color:#ece5d6}'
+    + '#afmodal h3{font-size:1.05rem;margin-bottom:8px;color:#fbbf24}#afmodal p{font-size:.85rem;color:#b8ad96;margin-bottom:16px}'
+    + '#afmodal input{width:100%;padding:12px;border-radius:10px;background:rgba(26,22,15,.7);border:1px solid rgba(245,158,11,.2);'
+    + 'color:#ece5d6;font-size:1.3rem;text-align:center;letter-spacing:.4em;font-family:inherit;outline:none;margin-bottom:12px}'
+    + '#afmodal .mbtns{display:flex;gap:10px}#afmodal button{flex:1;padding:11px;border-radius:9px;font-weight:700;cursor:pointer;border:none;font-family:inherit;font-size:.9rem}'
+    + '#afmodal .go{background:linear-gradient(135deg,#f59e0b,#d97706);color:#1a1206}#afmodal .cancel{background:rgba(255,255,255,.08);color:#b8ad96}'
+    + '#afmodal .merr{color:#ef4444;font-size:.8rem;min-height:1em;margin-bottom:6px}';
+  var st=document.createElement('style'); st.textContent=css; document.head.appendChild(st);
+
+  var nav=document.createElement('nav'); nav.id='afnav';
+  nav.innerHTML =
+      '<a class="afbrand" href="'+LINKS.ascension+'">🏰 Ascension</a>'
+    + '<a href="'+LINKS.lab+'">⚗️ Strategy Lab</a>'
+    + '<a href="'+LINKS.watchtower+'">🔭 Watchtower</a>'
+    + '<span class="afitem afsoon" title="Arena — Coming Soon">⚔️ Arena <span class="badge">SOON</span></span>'
+    + '<button class="afitem afops" id="afops" style="display:none" onclick="__afOps()">⚙️ Ops</button>'
+    + '<span class="afright" id="afright"></span>';
+  var modal=document.createElement('div'); modal.id='afmodal';
+  modal.innerHTML='<div class="box"><h3>Confirm your identity</h3><p>Enter your authenticator code to access Operations.</p>'
+    + '<div class="merr" id="afmerr"></div><input id="afcode" inputmode="numeric" maxlength="6" placeholder="000000">'
+    + '<div class="mbtns"><button class="cancel" onclick="__afOpsClose()">Cancel</button><button class="go" id="afgo" onclick="__afOpsVerify()">Verify</button></div></div>';
+  function mount(){
+    document.body.insertBefore(nav, document.body.firstChild); document.body.appendChild(modal);
+    function pad(){ document.body.style.paddingTop = (nav.offsetHeight||52) + 'px'; }
+    requestAnimationFrame(pad); window.addEventListener('resize', pad); afAuth();
+  }
+  if(document.body) mount(); else document.addEventListener('DOMContentLoaded', mount);
+
+  var CURRENT = encodeURIComponent(window.location.href);
+  async function afAuth(){
+    var right=document.getElementById('afright'); var user=null;
+    try{ var r=await fetch('/api/auth/me',{credentials:'include'}); if(r.ok){ var d=await r.json(); user=d.user||d; } }catch(e){}
+    if(user){
+      var role=user.role||'basic';
+      right.innerHTML='<span class="afwho">'+(user.display_name||'Commander')+'</span>'
+        +'<a href="'+ACCOUNT+'">Account</a>'
+        +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
+      if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
+    } else {
+      right.innerHTML='<a class="afsignin" href="'+LOGIN+'?return='+CURRENT+'">Sign in</a>';
+    }
+  }
+  // Logout: clear the session server-side (both cookie scopes — see clear_auth_cookies)
+  // then land on the public realm. /api is same-origin-proxied on every AF host.
+  window.__afLogout=async function(){
+    try{ await fetch('/api/auth/logout',{method:'POST',credentials:'include'}); }catch(e){}
+    window.location.href=LINKS.ascension;
+  };
+  window.__afOps=function(){
+    // If already ops-verified this hour, go straight through.
+    if(/(?:^|;\s*)ops_verified=true/.test(document.cookie)){ window.location.href=OPS; return; }
+    document.getElementById('afmerr').textContent=''; document.getElementById('afcode').value='';
+    document.getElementById('afmodal').classList.add('on');
+    setTimeout(function(){document.getElementById('afcode').focus();},50);
+  };
+  window.__afOpsClose=function(){ document.getElementById('afmodal').classList.remove('on'); };
+  window.__afOpsVerify=async function(){
+    var err=document.getElementById('afmerr'); err.textContent='';
+    var code=(document.getElementById('afcode').value||'').trim();
+    if(code.length<6){ err.textContent='Enter the 6-digit code.'; return; }
+    var b=document.getElementById('afgo'); b.disabled=true; b.textContent='…';
+    try{
+      var r=await fetch('/api/auth/verify-totp-ops',{method:'POST',credentials:'include',
+        headers:{'Content-Type':'application/json'},body:JSON.stringify({code:code})});
+      if(r.ok){ window.location.href=OPS; return; }
+      var d=await r.json().catch(function(){return {};});
+      err.textContent=(r.status===403)?'Operations is restricted to owner/admin.':((typeof d.detail==='string'?d.detail:null)||'Invalid code. Try again.');
+    }catch(e){ err.textContent='Connection error — try again.'; }
+    b.disabled=false; b.textContent='Verify';
+  };
+})();
 </script>
 </body>
 </html>

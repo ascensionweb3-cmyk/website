@@ -711,7 +711,7 @@
   var OPS   = 'https://ops.ascensionrealm.com/';
   var LINKS = {
     ascension:  'https://ascensionrealm.com',
-    lab:        'https://lab.ascensionrealm.com/lab',
+    lab:        'https://ascensionrealm.com/lab/',
     watchtower: 'https://ascensionrealm.com/lab/watchtower.html',
     arena:      'https://arena.ascensionrealm.com'
   };
@@ -727,7 +727,7 @@
     + '#afnav .afsoon .badge{margin-left:5px;font-size:.5rem;font-weight:700;letter-spacing:.5px;padding:1px 5px;'
     + 'border-radius:999px;background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}'
     + '#afnav .afops{color:#22d3ee}#afnav .afright{margin-left:auto;display:flex;align-items:center;gap:10px}'
-    + '#afnav .afwho{font-size:.82rem;color:#b8ad96}#afnav .afsignin{background:linear-gradient(135deg,#f59e0b,#d97706);'
+    + '#afnav .afwho{font-size:.82rem;color:#b8ad96}#afnav .aflogout{color:#f4a3a3}#afnav .aflogout:hover{color:#fecaca;background:rgba(239,68,68,.10)}#afnav .afsignin{background:linear-gradient(135deg,#f59e0b,#d97706);'
     + 'color:#1a1206;font-weight:700;border-radius:999px;padding:6px 16px}'
     + '#afmodal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}'
     + '#afmodal.on{display:flex}#afmodal .box{background:#12121a;border:1px solid rgba(245,158,11,.3);border-radius:14px;max-width:380px;width:100%;padding:26px;text-align:center;font-family:"Rajdhani",sans-serif;color:#ece5d6}'
@@ -765,12 +765,17 @@
     if(user){
       var role=user.role||'basic';
       right.innerHTML='<span class="afwho">'+(user.display_name||'Commander')+'</span>'
-        +'<a href="https://lab.ascensionrealm.com/lab/account.html">Account</a>';
+        +'<a href="https://ascensionrealm.com/lab/account.html">Account</a>'
+        +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
       right.innerHTML='<a class="afsignin" href="'+LOGIN+'?return='+CURRENT+'">Sign in</a>';
     }
   }
+  window.__afLogout=async function(){
+    try{ await fetch('/api/auth/logout',{method:'POST',credentials:'include'}); }catch(e){}
+    window.location.href='https://ascensionrealm.com';
+  };
   window.__afOps=function(){
     // If already ops-verified this hour, go straight through.
     if(/(?:^|;\s*)ops_verified=true/.test(document.cookie)){ window.location.href=OPS; return; }
@@ -826,22 +831,10 @@
     <div class="bg-effects"></div>
     <div class="grid-overlay"></div>
 
-    <header>
-        <div class="container">
-            <div class="header-inner">
-                <div></div>
-                <nav class="nav-links" id="navLinks">
-                    <a href="/herald" title="Herald Cries — News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
-                    <a href="/lab" style="color: var(--cyan); font-weight: 600;" title="Strategy Lab — Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
-                    <a href="https://lab.ascensionrealm.com/lab" style="color: var(--gold); font-weight: 600;" title="Watchtower — Live bot monitoring & trading"><span aria-hidden="true">🏰</span> Watchtower</a>
-                    <a href="#" class="nav-disabled" title="Arena — Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;" style="color: rgba(245,158,11,0.45);"><span aria-hidden="true">⚔️</span> Arena <sup>Soon</sup></a>
-                    <a href="#partnerships" style="color: var(--purple); font-weight: 600;" title="Partnerships — Build the realm with us"><span aria-hidden="true">🤝</span> Partnerships</a>
-                    <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
-                </nav>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-            </div>
-        </div>
-    </header>
+    <!-- CP-30 Fix 4: the old upper nav (Herald Cries / Strategy Lab / Watchtower /
+         Arena / Partnerships / Discord) was removed. The CP-29 cross-site nav bar
+         (injected by the af-nav script above) is now the single top-of-page nav;
+         Herald / Partnerships / Discord remain reachable from the footer + sections. -->
 
     <main>
     <div class="container">
@@ -911,6 +904,12 @@
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
                         <span aria-hidden="true">🔭</span> Watchtower — Members Only
+                    </a>
+                    <a href="https://arena.ascensionrealm.com" class="btn btn-ghost" title="The Arena — Strategy competitions (coming soon)">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="m16 16 4 4"/><path d="m19 21 2-2"/>
+                        </svg>
+                        <span aria-hidden="true">⚔️</span> Arena — Coming Soon
                     </a>
                     <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon" onclick="return false;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1488,7 +1487,7 @@
                 In Beta — Active Iterative Development
             </p>
             <p class="footer-note">
-                Support: <a href="mailto:support@ascensionrealm.com" style="color: var(--cyan); text-decoration: none;">support@ascensionrealm.com</a>
+                Support: <a href="mailto:admin@ascensionrealm.com" style="color: var(--cyan); text-decoration: none;">admin@ascensionrealm.com</a>
             </p>
             <p class="copyright">
                 © 2026 Ascension. All rights reserved.
