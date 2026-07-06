@@ -713,6 +713,8 @@
     ascension:  'https://ascensionrealm.com',
     lab:        'https://ascensionrealm.com/lab/',
     watchtower: 'https://ascensionrealm.com/lab/watchtower.html',
+    herald:     'https://ascensionrealm.com/herald',
+    whitepaper: 'https://ascension-finance.gitbook.io/ascension-finance/',
     arena:      'https://arena.ascensionrealm.com'
   };
   var css = ''
@@ -729,6 +731,13 @@
     + '#afnav .afops{color:#22d3ee}#afnav .afright{margin-left:auto;display:flex;align-items:center;gap:10px}'
     + '#afnav .afwho{font-size:.82rem;color:#b8ad96}#afnav .aflogout{color:#f4a3a3}#afnav .aflogout:hover{color:#fecaca;background:rgba(239,68,68,.10)}#afnav .afsignin{background:linear-gradient(135deg,#f59e0b,#d97706);'
     + 'color:#1a1206;font-weight:700;border-radius:999px;padding:6px 16px}'
+    + '#afnav .afdrop{position:relative;display:inline-block}'
+    + '#afnav .afdrop-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:186px;background:rgba(12,12,20,.98);'
+    + 'border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:6px;display:none;flex-direction:column;gap:2px;'
+    + 'box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:9500}'
+    + '#afnav .afdrop:hover .afdrop-menu,#afnav .afdrop:focus-within .afdrop-menu,#afnav .afdrop-menu.on{display:flex}'
+    + '#afnav .afdrop-menu a{display:block;color:#b8ad96;font-size:.82rem;font-weight:600;padding:7px 12px;border-radius:6px;white-space:nowrap}'
+    + '#afnav .afdrop-menu a:hover{color:#ece5d6;background:rgba(245,158,11,.10)}'
     + '#afmodal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}'
     + '#afmodal.on{display:flex}#afmodal .box{background:#12121a;border:1px solid rgba(245,158,11,.3);border-radius:14px;max-width:380px;width:100%;padding:26px;text-align:center;font-family:"Rajdhani",sans-serif;color:#ece5d6}'
     + '#afmodal h3{font-size:1.05rem;margin-bottom:8px;color:#fbbf24}#afmodal p{font-size:.85rem;color:#b8ad96;margin-bottom:16px}'
@@ -744,7 +753,18 @@
       '<a class="afbrand" href="'+LINKS.ascension+'">🏰 Ascension</a>'
     + '<a href="'+LINKS.lab+'">⚗️ Strategy Lab</a>'
     + '<a href="'+LINKS.watchtower+'">🔭 Watchtower</a>'
+    + '<a href="'+LINKS.herald+'">📜 Herald Cries</a>'
     + '<span class="afitem afsoon" title="Arena — Coming Soon">⚔️ Arena <span class="badge">SOON</span></span>'
+    + '<span class="afitem afsoon" title="dApp — Coming Soon (dapp.ascensionrealm.com)">⚡ dApp <span class="badge">SOON</span></span>'
+    + '<a href="'+LINKS.whitepaper+'" target="_blank" rel="noopener">📄 Whitepaper</a>'
+    + '<span class="afdrop"><button class="afitem" id="afcontact-t" aria-haspopup="true" aria-expanded="false" onclick="__afContact(event)">✉️ Contact Us ▾</button>'
+    +   '<div class="afdrop-menu" id="afcontact-menu">'
+    +     '<a href="https://discord.gg/qjA2aH7P4N" target="_blank" rel="noopener">💬 Discord</a>'
+    +     '<a href="mailto:admin@ascensionrealm.com">✉️ admin@ascensionrealm.com</a>'
+    +     '<a href="https://x.com/AscensionFi" target="_blank" rel="noopener">𝕏 @AscensionFi</a>'
+    +     '<a href="https://warpcast.com/ascensionfi" target="_blank" rel="noopener">🟪 Farcaster</a>'
+    +     '<a href="https://t.me/AscensionFi" target="_blank" rel="noopener">✈️ Telegram @AscensionFi</a>'
+    +   '</div></span>'
     + '<button class="afitem afops" id="afops" style="display:none" onclick="__afOps()">⚙️ Ops</button>'
     + '<span class="afright" id="afright"></span>';
   var modal=document.createElement('div'); modal.id='afmodal';
@@ -777,6 +797,16 @@
     try{ await fetch('/api/auth/logout',{method:'POST',credentials:'include'}); }catch(e){}
     window.location.href='https://ascensionrealm.com';
   };
+  window.__afContact=function(e){
+    e.preventDefault(); e.stopPropagation();
+    var m=document.getElementById('afcontact-menu'), t=document.getElementById('afcontact-t');
+    if(!m) return; var open=m.classList.toggle('on');
+    if(t) t.setAttribute('aria-expanded', open?'true':'false');
+  };
+  document.addEventListener('click',function(){
+    var m=document.getElementById('afcontact-menu'), t=document.getElementById('afcontact-t');
+    if(m) m.classList.remove('on'); if(t) t.setAttribute('aria-expanded','false');
+  });
   window.__afOps=function(){
     // If already ops-verified this hour, go straight through.
     if(/(?:^|;\s*)ops_verified=true/.test(document.cookie)){ window.location.href=OPS; return; }
@@ -875,13 +905,21 @@
                     <span class="highlight-gold">Traditional Discipline</span> · <span class="highlight-cyan">Digital Frontier</span>
                 </p>
 
-                <p class="asset-classes" style="font-family:'Cinzel',serif;font-size:clamp(14px,2.4vw,18px);letter-spacing:3px;text-transform:uppercase;margin-bottom:24px;color:var(--text-primary);">
-                    <span class="highlight-gold">Stocks</span> · <span class="highlight-gold">ETFs</span> · <span class="highlight-gold">Futures</span> · <span class="highlight-gold">Options</span> · <span class="highlight-cyan">Crypto</span>
+                <p class="realm-framing" style="font-family:'Cinzel',serif;font-size:clamp(16px,2.8vw,24px);font-weight:600;letter-spacing:5px;text-transform:uppercase;margin-bottom:18px;color:var(--text-primary);">
+                    Two Realms · One Platform · Infinite Strategy
+                </p>
+
+                <!-- FIX 2 (CP-32B): rebalanced 50/50 — Sovereign (gold) and Cipher (cyan)
+                     get equal breadth and weight; neither realm visually dominates. -->
+                <p class="asset-classes" style="font-family:'Cinzel',serif;font-size:clamp(13px,2.2vw,17px);letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;color:var(--text-primary);">
+                    <span class="highlight-gold">Stocks · ETFs · Options · Futures · Forex</span>
+                    <span style="color:var(--text-muted);margin:0 10px;">|</span>
+                    <span class="highlight-cyan">Crypto · Perpetuals · DeFi · Staking · Memecoins</span>
                 </p>
 
                 <p class="intro">
                     The realm is open. Begin your ascension.<br>
-                    <span style="font-size:16px;color:var(--text-secondary);">Automated AI trading bots across stocks, ETFs, futures, options, and crypto markets.</span>
+                    <span style="font-size:16px;color:var(--text-secondary);">One platform spanning <span class="highlight-gold">TradFi</span>, <span class="highlight-cyan">Crypto</span> &amp; <span class="highlight-cyan">DeFi</span> — plus staking, on-chain vaults, and strategy <span class="highlight-gold">Competitions</span>.</span>
                 </p>
                 
                 <div class="cta-buttons">
@@ -904,7 +942,7 @@
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        <span aria-hidden="true">🔭</span> Watchtower — Members Only
+                        <span aria-hidden="true">🔭</span> Watchtower — Members Only <sup style="font-size:0.6em;color:var(--cyan);letter-spacing:0;">BETA</sup>
                     </a>
                     <a href="https://arena.ascensionrealm.com" class="btn btn-ghost" title="The Arena — Strategy competitions (coming soon)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1290,7 +1328,7 @@
         <div class="container">
             <div class="section-header">
                 <div class="section-title">SOCIAL PULSE</div>
-                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--gold-light);margin-top:6px;" title="Cipher Realm — Crypto markets"><span aria-hidden="true">⚡</span> CIPHER REALM <span style="font-size:0.7rem;letter-spacing:1px;color:var(--text-secondary);">(Crypto Markets)</span></div>
+                <div class="section-title" style="font-size:1.15rem;font-weight:700;letter-spacing:2px;color:var(--cyan-light);margin-top:6px;" title="Cipher Realm — Crypto markets"><span aria-hidden="true">⚡</span> CIPHER REALM <span style="font-size:0.7rem;letter-spacing:1px;color:var(--text-secondary);">(Crypto Markets)</span></div>
                 <div class="section-subtitle">Trending Crypto — Live from CoinGecko</div>
                 <div class="section-divider"></div>
             </div>
@@ -1340,6 +1378,48 @@
                     });
                 })();
                 </script>
+            </div>
+
+            <!-- FIX 3 (CP-32B): Cipher featured areas — mirrors the Sovereign coverage
+                 grid below so both realms read as equally broad. Cyan aesthetic. -->
+            <div style="max-width:1000px;margin:26px auto 0;">
+                <p style="text-align:center;color:var(--text-secondary);font-family:'Rajdhani',sans-serif;font-size:0.98rem;margin-bottom:16px;">
+                    The Cipher Realm spans centralized and on-chain crypto — deploy automated bots across:
+                </p>
+                <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(170px,1fr));gap:12px;">
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Crypto Spot</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Major pairs like BTC, ETH, and SOL on centralized exchanges.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Futures</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Dated crypto futures with leverage.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">DeFi Vaults</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Automated on-chain yield &amp; strategy vaults.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Memecoins</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">High-volatility trending tokens.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Perpetuals</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Perpetual swaps across CEX &amp; on-chain venues.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Staking</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Earn on idle assets across proof-of-stake networks.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">On-chain Analytics</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Wallet flows, DEX volume, and network signals.</div>
+                    </div>
+                    <div style="background:rgba(20,20,32,0.72);border:1px solid rgba(6,182,212,0.22);border-radius:12px;padding:14px 16px;">
+                        <div style="font-family:'Cinzel',serif;color:var(--cyan-light);font-size:0.98rem;margin-bottom:4px;">Cross-chain Bridges</div>
+                        <div style="color:var(--text-secondary);font-size:0.82rem;line-height:1.45;">Move liquidity across chains to chase opportunity.</div>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
