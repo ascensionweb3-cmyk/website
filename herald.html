@@ -692,25 +692,9 @@
     </div>
 
 
-    <header>
-        <div class="container">
-            <div class="header-content">
-                <a href="/" class="logo">
-                    <img src="/images/logo.png" alt="Ascension Logo">
-                    <span class="logo-text">Ascension</span>
-                </a>
-                <nav class="nav-links" id="navLinks">
-                    <a href="/">Home</a>
-                    <a href="/lab" style="color: var(--cyan); font-weight: 600;"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
-                    <a href="https://ascensionrealm.com/lab/watchtower.html"><span class="nav-emoji">🏰</span>Watchtower</a>
-                    <a href="#" class="nav-disabled" title="Coming Soon" aria-disabled="true" onclick="return false;"><span class="nav-emoji">⚔️</span>Arena <sup>Soon</sup></a>
-                    <a href="/#partnerships"><span class="nav-emoji">🤝</span>Partnerships</a>
-                    <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
-                </nav>
-                <button class="nav-toggle" id="navToggle" aria-label="Toggle menu" aria-expanded="false">☰</button>
-            </div>
-        </div>
-    </header>
+    <!-- CP-32A: old pre-CP-29 top nav removed. Cross-site navigation is provided by
+         the fixed AF cross-site nav (injected near end of body); the TradingView
+         ticker above is content, not nav. -->
 
     <main>
         <div class="container">
@@ -838,38 +822,30 @@
         </div>
     </main>
 
+    <!-- CP-32A bottom nav — matches the main-site footer pattern -->
     <footer>
         <div class="container">
-            <div class="footer-content">
-                <div class="footer-links">
+            <div class="footer-content" style="flex-direction:column;gap:14px;text-align:center;">
+                <div class="footer-links" style="flex-wrap:wrap;justify-content:center;">
                     <a href="/">Home</a>
                     <a href="/lab"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
+                    <a href="https://ascensionrealm.com/lab/watchtower.html"><span class="nav-emoji">🏰</span>Watchtower</a>
+                    <a href="#" title="Coming Soon" aria-disabled="true" onclick="return false;" style="opacity:.5;cursor:default;"><span class="nav-emoji">⚔️</span>Arena — Soon</a>
+                    <a href="/#partnerships"><span class="nav-emoji">🤝</span>Partnerships</a>
+                    <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
+                    <a href="/terms">Terms</a>
+                    <a href="/privacy">Privacy</a>
                     <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
-                    <a href="https://twitter.com/AscensionFi" target="_blank">Twitter</a>
                 </div>
+                <p class="copyright" style="font-size:.85rem;">Support: <a href="mailto:admin@ascensionrealm.com" style="color:var(--cyan);text-decoration:none;">admin@ascensionrealm.com</a></p>
                 <p class="copyright">© 2026 Ascension. All rights reserved.</p>
             </div>
         </div>
     </footer>
 
     <script>
-        // Mobile nav (hamburger) toggle
-        (function () {
-            const toggle = document.getElementById('navToggle');
-            const links = document.getElementById('navLinks');
-            if (toggle && links) {
-                toggle.addEventListener('click', () => {
-                    const open = links.classList.toggle('open');
-                    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
-                });
-                links.querySelectorAll('a').forEach((a) => {
-                    a.addEventListener('click', () => {
-                        links.classList.remove('open');
-                        toggle.setAttribute('aria-expanded', 'false');
-                    });
-                });
-            }
-        })();
+        // CP-32A: mobile hamburger toggle removed with the old top nav (the fixed
+        // AF cross-site nav handles cross-site navigation on its own).
 
         const API_BASE = 'https://tps3qkvor3.execute-api.us-east-1.amazonaws.com/prod';
         let currentRealm = 'all';
@@ -1158,7 +1134,8 @@
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
-      right.innerHTML='<a class="afsignin" href="'+LOGIN+'?return='+CURRENT+'">Sign in</a>';
+      // CP-32A: clean login URL — return dest rides a cookie set by login-redirect.
+      right.innerHTML='<a class="afsignin" href="/api/auth/login-redirect?return_url='+CURRENT+'">Sign in</a>';
     }
   }
   // Logout: clear the session server-side (both cookie scopes — see clear_auth_cookies)
