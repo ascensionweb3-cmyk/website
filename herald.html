@@ -826,15 +826,16 @@
     <footer>
         <div class="container">
             <div class="footer-content" style="flex-direction:column;gap:14px;text-align:center;">
+                <!-- CP-33 Fix 5A: bottom nav identical to the home-page footer (same links, order, labels). -->
                 <div class="footer-links" style="flex-wrap:wrap;justify-content:center;">
-                    <a href="/">Home</a>
-                    <a href="/lab"><span class="nav-emoji">⚗️</span>Strategy Lab</a>
-                    <a href="https://ascensionrealm.com/lab/watchtower.html"><span class="nav-emoji">🏰</span>Watchtower</a>
-                    <a href="#" title="Coming Soon" aria-disabled="true" onclick="return false;" style="opacity:.5;cursor:default;"><span class="nav-emoji">⚔️</span>Arena — Soon</a>
-                    <a href="/#partnerships"><span class="nav-emoji">🤝</span>Partnerships</a>
+                    <a href="/herald" title="News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
+                    <a href="https://lab.ascensionrealm.com" title="Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
+                    <a href="https://watchtower.ascensionrealm.com" title="Live bot monitoring & trading"><span aria-hidden="true">🔭</span> Watchtower</a>
+                    <a href="#" title="Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;" style="opacity:.5;cursor:default;"><span aria-hidden="true">⚔️</span> Arena — Coming Soon</a>
+                    <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry">Partnership Inquiries</a>
                     <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
-                    <a href="/terms">Terms</a>
-                    <a href="/privacy">Privacy</a>
+                    <a href="/terms">Terms of Service</a>
+                    <a href="/privacy">Privacy Policy</a>
                     <a href="https://discord.gg/qjA2aH7P4N" target="_blank">Discord</a>
                 </div>
                 <p class="copyright" style="font-size:.85rem;">Support: <a href="mailto:admin@ascensionrealm.com" style="color:var(--cyan);text-decoration:none;">admin@ascensionrealm.com</a></p>
@@ -1069,17 +1070,16 @@
 (function(){
   var LOGIN = 'https://ascensionrealm.com/login';
   var OPS   = 'https://ops.ascensionrealm.com/';
-  // NOTE: lab paths use the ascensionrealm.com origin, NOT lab.ascensionrealm.com.
-  // The lab subdomain 301-rewrites "/<path>" -> "ascensionrealm.com/lab/<path>",
-  // so a link that already contains /lab (e.g. lab.ascensionrealm.com/lab/account.html)
-  // doubles to /lab/lab/... and 404s. Hitting the canonical origin avoids that.
+  // CP-33 URL unification: SL at lab-subdomain ROOT, Watchtower on its own subdomain.
   var LINKS = {
     ascension:  'https://ascensionrealm.com',
-    lab:        'https://ascensionrealm.com/lab/',
-    watchtower: 'https://ascensionrealm.com/lab/watchtower.html',
+    lab:        'https://lab.ascensionrealm.com',
+    watchtower: 'https://watchtower.ascensionrealm.com',
+    herald:     'https://ascensionrealm.com/herald',
+    whitepaper: 'https://ascension-finance.gitbook.io/ascension-finance/',
     arena:      'https://arena.ascensionrealm.com'
   };
-  var ACCOUNT = 'https://ascensionrealm.com/lab/account.html';
+  var ACCOUNT = 'https://lab.ascensionrealm.com/account';
   var css = ''
     + '#afnav{position:fixed;top:0;left:0;right:0;z-index:9000;display:flex;align-items:center;gap:4px;'
     + 'padding:10px 20px;background:rgba(10,10,15,.92);backdrop-filter:blur(8px);'
@@ -1092,6 +1092,11 @@
     + '#afnav .afsoon .badge{margin-left:5px;font-size:.5rem;font-weight:700;letter-spacing:.5px;padding:1px 5px;'
     + 'border-radius:999px;background:rgba(245,158,11,.15);color:#f59e0b;border:1px solid rgba(245,158,11,.4)}'
     + '#afnav .afops{color:#22d3ee}#afnav .afright{margin-left:auto;display:flex;align-items:center;gap:10px}'
+    + '#afnav .afdrop{position:relative;display:inline-block}'
+    + '#afnav .afdrop-menu{position:absolute;top:calc(100% + 6px);left:0;min-width:186px;background:rgba(12,12,20,.98);border:1px solid rgba(245,158,11,.2);border-radius:10px;padding:6px;display:none;flex-direction:column;gap:2px;box-shadow:0 12px 34px rgba(0,0,0,.55);z-index:9500}'
+    + '#afnav .afdrop:hover .afdrop-menu,#afnav .afdrop:focus-within .afdrop-menu,#afnav .afdrop-menu.on{display:flex}'
+    + '#afnav .afdrop-menu a{display:block;color:#b8ad96;font-size:.82rem;font-weight:600;padding:7px 12px;border-radius:6px;white-space:nowrap}'
+    + '#afnav .afdrop-menu a:hover{color:#ece5d6;background:rgba(245,158,11,.10)}'
     + '#afnav .afwho{font-size:.82rem;color:#b8ad96}#afnav .aflogout{color:#f4a3a3}#afnav .aflogout:hover{color:#fecaca;background:rgba(239,68,68,.10)}#afnav .afsignin{background:linear-gradient(135deg,#f59e0b,#d97706);'
     + 'color:#1a1206;font-weight:700;border-radius:999px;padding:6px 16px}'
     + '#afmodal{position:fixed;inset:0;background:rgba(0,0,0,.72);z-index:9999;display:none;align-items:center;justify-content:center;padding:20px}'
@@ -1109,7 +1114,18 @@
       '<a class="afbrand" href="'+LINKS.ascension+'">🏰 Ascension</a>'
     + '<a href="'+LINKS.lab+'">⚗️ Strategy Lab</a>'
     + '<a href="'+LINKS.watchtower+'">🔭 Watchtower</a>'
+    + '<a href="'+LINKS.herald+'">📜 Herald Cries</a>'
     + '<span class="afitem afsoon" title="Arena — Coming Soon">⚔️ Arena <span class="badge">SOON</span></span>'
+    + '<span class="afitem afsoon" title="dApp — Coming Soon (dapp.ascensionrealm.com)">⚡ dApp <span class="badge">SOON</span></span>'
+    + '<a href="'+LINKS.whitepaper+'" target="_blank" rel="noopener">📄 Whitepaper</a>'
+    + '<span class="afdrop"><button class="afitem" id="afcontact-t" aria-haspopup="true" aria-expanded="false" onclick="__afContact(event)">✉️ Contact Us ▾</button>'
+      + '<div class="afdrop-menu" id="afcontact-menu">'
+        + '<a href="https://discord.gg/qjA2aH7P4N" target="_blank" rel="noopener">💬 Discord</a>'
+        + '<a href="mailto:admin@ascensionrealm.com">✉️ admin@ascensionrealm.com</a>'
+        + '<a href="https://x.com/AscensionFi" target="_blank" rel="noopener">𝕏 @AscensionFi</a>'
+        + '<a href="https://warpcast.com/ascensionfi" target="_blank" rel="noopener">🟪 Farcaster</a>'
+        + '<a href="https://t.me/AscensionFi" target="_blank" rel="noopener">✈️ Telegram @AscensionFi</a>'
+      + '</div></span>'
     + '<button class="afitem afops" id="afops" style="display:none" onclick="__afOps()">⚙️ Ops</button>'
     + '<span class="afright" id="afright"></span>';
   var modal=document.createElement('div'); modal.id='afmodal';
@@ -1138,6 +1154,12 @@
       right.innerHTML='<a class="afsignin" href="/api/auth/login-redirect?return_url='+CURRENT+'">Sign in</a>';
     }
   }
+  window.__afContact=function(e){ e.preventDefault(); e.stopPropagation();
+    var m=document.getElementById('afcontact-menu'), t=document.getElementById('afcontact-t');
+    if(!m) return; var open=m.classList.toggle('on'); if(t) t.setAttribute('aria-expanded', open?'true':'false'); };
+  document.addEventListener('click', function(){
+    var m=document.getElementById('afcontact-menu'), t=document.getElementById('afcontact-t');
+    if(m) m.classList.remove('on'); if(t) t.setAttribute('aria-expanded','false'); });
   // Logout: clear the session server-side (both cookie scopes — see clear_auth_cookies)
   // then land on the public realm. /api is same-origin-proxied on every AF host.
   window.__afLogout=async function(){
