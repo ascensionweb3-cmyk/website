@@ -754,7 +754,7 @@
     + '<a href="'+LINKS.lab+'">⚗️ Strategy Lab</a>'
     + '<a href="'+LINKS.watchtower+'">🔭 Watchtower</a>'
     + '<a href="'+LINKS.herald+'">📜 Herald Cries</a>'
-    + '<span class="afitem afsoon" title="Arena — Coming Soon">⚔️ Arena <span class="badge">SOON</span></span>'
+    + '<a href="'+LINKS.arena+'">⚔️ Arena</a>'
     + '<span class="afitem afsoon" title="dApp — Coming Soon (dapp.ascensionrealm.com)">⚡ dApp <span class="badge">SOON</span></span>'
     + '<a href="'+LINKS.whitepaper+'" target="_blank" rel="noopener">📄 Whitepaper</a>'
     + '<span class="afdrop"><button class="afitem" id="afcontact-t" aria-haspopup="true" aria-expanded="false" onclick="__afContact(event)">✉️ Contact Us ▾</button>'
@@ -789,8 +789,9 @@
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
-      // CP-32A: clean login URL — return dest rides a cookie set by login-redirect.
-      right.innerHTML='<a class="afsignin" href="/api/auth/login-redirect?return_url='+CURRENT+'">Sign in</a>';
+      // CP-34 Fix 4: sign-in from the marketing home lands you IN the platform
+      // (Strategy Lab), not back on the home page — af_return = lab.ascensionrealm.com.
+      right.innerHTML='<a class="afsignin" href="/api/auth/login-redirect?return_url=https%3A%2F%2Flab.ascensionrealm.com">Sign in</a>';
     }
   }
   window.__afLogout=async function(){
@@ -949,11 +950,11 @@
                         </svg>
                         <span aria-hidden="true">🔭</span> Watchtower <sup style="font-size:0.6em;color:var(--cyan);letter-spacing:0;">BETA</sup>
                     </a>
-                    <a href="https://arena.ascensionrealm.com" class="btn btn-ghost" title="The Arena — Strategy competitions (coming soon)">
+                    <a href="https://arena.ascensionrealm.com" class="btn btn-ghost" title="The Arena — competitions across both realms">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M14.5 17.5 3 6V3h3l11.5 11.5"/><path d="m13 19 6-6"/><path d="m16 16 4 4"/><path d="m19 21 2-2"/>
                         </svg>
-                        <span aria-hidden="true">⚔️</span> Arena — Coming Soon
+                        <span aria-hidden="true">⚔️</span> Arena
                     </a>
                     <a href="#" class="btn btn-ghost btn-disabled" title="Coming Soon" onclick="return false;">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1562,7 +1563,7 @@
                 <a href="/herald" title="News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
                 <a href="https://lab.ascensionrealm.com" title="Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
                 <a href="https://watchtower.ascensionrealm.com" title="Live bot monitoring & trading"><span aria-hidden="true">🔭</span> Watchtower</a>
-                <a href="#" class="footer-disabled" title="Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;"><span aria-hidden="true">⚔️</span> Arena — Coming Soon</a>
+                <a href="https://arena.ascensionrealm.com" title="The Arena — competitions across both realms"><span aria-hidden="true">⚔️</span> Arena</a>
                 <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry">Partnership Inquiries</a>
                 <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
                 <a href="/terms">Terms of Service</a>
