@@ -769,7 +769,8 @@
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
-      right.innerHTML='<a class="afsignin" href="'+LOGIN+'?return='+CURRENT+'">Sign in</a>';
+      // CP-32A: clean login URL — return dest rides a cookie set by login-redirect.
+      right.innerHTML='<a class="afsignin" href="/api/auth/login-redirect?return_url='+CURRENT+'">Sign in</a>';
     }
   }
   window.__afLogout=async function(){
