@@ -711,8 +711,8 @@
   var OPS   = 'https://ops.ascensionrealm.com/';
   var LINKS = {
     ascension:  'https://ascensionrealm.com',
-    lab:        'https://ascensionrealm.com/lab/',
-    watchtower: 'https://ascensionrealm.com/lab/watchtower.html',
+    lab:        'https://lab.ascensionrealm.com',
+    watchtower: 'https://watchtower.ascensionrealm.com',
     herald:     'https://ascensionrealm.com/herald',
     whitepaper: 'https://ascension-finance.gitbook.io/ascension-finance/',
     arena:      'https://arena.ascensionrealm.com'
@@ -785,7 +785,7 @@
     if(user){
       var role=user.role||'basic';
       right.innerHTML='<span class="afwho">'+(user.display_name||'Commander')+'</span>'
-        +'<a href="https://ascensionrealm.com/lab/account.html">Account</a>'
+        +'<a href="https://lab.ascensionrealm.com/account">Account</a>'
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
@@ -910,16 +910,19 @@
                 </p>
 
                 <!-- FIX 2 (CP-32B): rebalanced 50/50 — Sovereign (gold) and Cipher (cyan)
-                     get equal breadth and weight; neither realm visually dominates. -->
-                <p class="asset-classes" style="font-family:'Cinzel',serif;font-size:clamp(13px,2.2vw,17px);letter-spacing:2px;text-transform:uppercase;margin-bottom:22px;color:var(--text-primary);">
+                     get equal breadth and weight; neither realm visually dominates.
+                     CP-33 Fix 5F: flex row — the two realm lists + divider stay centred
+                     on one line and wrap cleanly (divider hidden when stacked). -->
+                <p class="asset-classes" style="font-family:'Cinzel',serif;font-size:clamp(13px,2.2vw,17px);letter-spacing:2px;text-transform:uppercase;margin:0 auto 22px;max-width:900px;color:var(--text-primary);display:flex;flex-wrap:wrap;justify-content:center;align-items:center;gap:6px 14px;">
                     <span class="highlight-gold">Stocks · ETFs · Options · Futures · Forex</span>
-                    <span style="color:var(--text-muted);margin:0 10px;">|</span>
+                    <span class="ac-div" style="color:var(--text-muted);">|</span>
                     <span class="highlight-cyan">Crypto · Perpetuals · DeFi · Staking · Memecoins</span>
                 </p>
 
+                <!-- CP-33 Fix 5F: balanced wrapping so the sentence breaks evenly and stays centred. -->
                 <p class="intro">
                     The realm is open. Begin your ascension.<br>
-                    <span style="font-size:16px;color:var(--text-secondary);">One platform spanning <span class="highlight-gold">TradFi</span>, <span class="highlight-cyan">Crypto</span> &amp; <span class="highlight-cyan">DeFi</span> — plus staking, on-chain vaults, and strategy <span class="highlight-gold">Competitions</span>.</span>
+                    <span style="display:inline-block;max-width:560px;font-size:16px;color:var(--text-secondary);text-wrap:balance;">One platform spanning <span class="highlight-gold">TradFi</span>, <span class="highlight-cyan">Crypto</span> &amp; <span class="highlight-cyan">DeFi</span> — plus staking, on-chain vaults, and strategy <span class="highlight-gold">Competitions</span>.</span>
                 </p>
                 
                 <div class="cta-buttons">
@@ -929,7 +932,7 @@
                         </svg>
                         Join Discord
                     </a>
-                    <a href="/lab" class="btn btn-ghost">
+                    <a href="https://lab.ascensionrealm.com" class="btn btn-ghost">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M9 3h6l2 4H7L9 3z"/>
                             <path d="M7 7v10a2 2 0 002 2h6a2 2 0 002-2V7"/>
@@ -937,12 +940,14 @@
                         </svg>
                         <span aria-hidden="true">⚗️</span> Strategy Lab <sup style="font-size:0.6em;color:var(--cyan);">BETA</sup>
                     </a>
-                    <a href="#" class="btn btn-ghost btn-disabled" title="Members Only" onclick="return false;">
+                    <!-- CP-33 Fix 5F: Watchtower is now a live link (its own subdomain);
+                         login is enforced by the page's own auth gate, like Strategy Lab. -->
+                    <a href="https://watchtower.ascensionrealm.com" class="btn btn-ghost" title="Watchtower — live bot monitoring (sign-in required)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                             <circle cx="12" cy="12" r="3"/>
                         </svg>
-                        <span aria-hidden="true">🔭</span> Watchtower — Members Only <sup style="font-size:0.6em;color:var(--cyan);letter-spacing:0;">BETA</sup>
+                        <span aria-hidden="true">🔭</span> Watchtower <sup style="font-size:0.6em;color:var(--cyan);letter-spacing:0;">BETA</sup>
                     </a>
                     <a href="https://arena.ascensionrealm.com" class="btn btn-ghost" title="The Arena — Strategy competitions (coming soon)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -1555,8 +1560,8 @@
         <div class="container">
             <div class="footer-links">
                 <a href="/herald" title="News & market updates"><span aria-hidden="true">📜</span> Herald Cries</a>
-                <a href="/lab" title="Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
-                <a href="https://lab.ascensionrealm.com/lab" title="Live bot monitoring & trading"><span aria-hidden="true">🏰</span> Watchtower</a>
+                <a href="https://lab.ascensionrealm.com" title="Build & backtest trading strategies"><span aria-hidden="true">⚗️</span> Strategy Lab</a>
+                <a href="https://watchtower.ascensionrealm.com" title="Live bot monitoring & trading"><span aria-hidden="true">🔭</span> Watchtower</a>
                 <a href="#" class="footer-disabled" title="Strategy competitions (coming soon)" aria-disabled="true" onclick="return false;"><span aria-hidden="true">⚔️</span> Arena — Coming Soon</a>
                 <a href="mailto:admin@ascensionrealm.com?subject=Partnership%20Inquiry">Partnership Inquiries</a>
                 <a href="https://ascension-finance.gitbook.io/ascension-finance/" target="_blank">Whitepaper</a>
