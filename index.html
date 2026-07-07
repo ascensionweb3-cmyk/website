@@ -750,7 +750,7 @@
 
   var nav=document.createElement('nav'); nav.id='afnav';
   nav.innerHTML =
-      '<a class="afbrand" href="'+LINKS.ascension+'">🏰 Ascension</a>'
+      '<a class="afbrand" href="'+LINKS.ascension+'">🏰 Ascension</a>'+'<a id="afhub" href="https://hub.ascensionrealm.com" style="display:none">🏛️ Hub</a>'
     + '<a href="'+LINKS.lab+'">⚗️ Strategy Lab</a>'
     + '<a href="'+LINKS.watchtower+'">🔭 Watchtower</a>'
     + '<a href="'+LINKS.herald+'">📜 Herald Cries</a>'
@@ -787,6 +787,7 @@
       right.innerHTML='<span class="afwho">'+(user.display_name||'Commander')+'</span>'
         +'<a href="https://lab.ascensionrealm.com/account">Account</a>'
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
+      var _ah=document.getElementById('afhub'); if(_ah&&location.hostname!=='hub.ascensionrealm.com')_ah.style.display='';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
     } else {
       // CP-34 Fix 4: sign-in from the marketing home lands you IN the platform
