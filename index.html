@@ -224,7 +224,7 @@
 
         .logo-ring {
             position: absolute;
-            top: 50%;
+            top: 80px;   /* anchor to the flipbook's vertical center (160px/2), not the container's — the container also contains the dots below, which pushed the rings low */
             left: 50%;
             transform: translate(-50%, -50%);
             width: 200px;
@@ -446,6 +446,7 @@
             }
 
             .logo-ring {
+                top: 60px;   /* mobile flipbook is 120px → center at 60px */
                 width: 160px;
                 height: 160px;
             }
