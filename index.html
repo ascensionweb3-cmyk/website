@@ -787,7 +787,7 @@
     if(user){
       var role=user.role||'basic';
       right.innerHTML='<span class="afwho">'+(user.display_name||'Commander')+'</span>'
-        +'<a href="https://lab.ascensionrealm.com/account">Account</a>'
+        +'<a href="https://hub.ascensionrealm.com/account">Account</a>'
         +'<button class="afitem aflogout" onclick="__afLogout()">Logout</button>';
       var _ah=document.getElementById('afhub'); if(_ah&&location.hostname!=='hub.ascensionrealm.com')_ah.style.display='';
       if(role==='owner'||role==='admin'){ document.getElementById('afops').style.display=''; }
